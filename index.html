@@ -96,7 +96,7 @@
         บริการให้คำปรึกษาและดำเนินการเรื่องวีซ่าและการเรียนต่อต่างประเทศครบวงจร
       </p>
       
-      <!-- LINE Status (Button Removed) -->
+      <!-- LINE Status (No Button as requested) -->
       <div id="lineSection" class="min-h-[50px] flex justify-center items-center">
         <!-- ข้อมูล Profile (แสดงเมื่อล็อกอินแล้ว) -->
         <div id="lineProfileInfo" class="hidden flex items-center bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20 shadow-lg">
@@ -110,8 +110,8 @@
           </div>
         </div>
         
-        <!-- Error Message Container -->
-        <div id="liffErrorMsg" class="hidden text-red-100 bg-red-600/80 px-4 py-2 rounded-lg text-sm mt-2 shadow-lg backdrop-blur-sm"></div>
+        <!-- Error Message Container (For Debugging) -->
+        <div id="liffErrorMsg" class="hidden text-red-100 bg-red-900/50 px-4 py-2 rounded-lg text-sm mt-2 border border-red-400/30"></div>
       </div>
     </div>
   </div>
@@ -176,6 +176,11 @@
               <label class="block text-sm font-medium text-gray-700 mb-1.5">อีเมล</label>
               <input type="email" name="email" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="yourname@email.com">
             </div>
+          </div>
+          <!-- เพิ่มช่องกรอก LINE ID -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">LINE ID</label>
+            <input type="text" name="manualLineId" class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="ระบุ LINE ID ของคุณ">
           </div>
         </div>
 
@@ -292,36 +297,27 @@
     // --- ตั้งค่า ---
     const LIFF_ID = "2008709490-FPzLWusz"; 
     // !!! URL Web App ที่อัปเดตใหม่ !!!
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziub89LSLAYz2943w5Z6dS8CwX5_LVddbcf-mJMwvDGvStpvuQk3IIHG05MKZ0EhrH/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuZh0bKDEyhbVBQEzIJp__mzA2-I95edn2t7SVNSlWsovVgicMMIvh-lX7N23ifK6K/exec"; 
 
     // --- LIFF ---
     async function initializeLiff() {
       try {
         await liff.init({ liffId: LIFF_ID });
         
-        // [FIX] เพิ่มการตรวจสอบ: หากเปิดใน LINE App (Message Card) แล้วยังไม่ Login ให้ Login ทันที
-        // วิธีนี้จะช่วยดึงข้อมูลเมื่อเปิดจากการ์ดได้ โดยไม่กระทบ Browser ภายนอก
-        if (liff.isInClient() && !liff.isLoggedIn()) {
-            liff.login();
-            return;
-        }
-
+        // ถ้าล็อกอินแล้ว ให้ดึงข้อมูลและแสดง UI ว่าล็อกอินแล้ว
         if (liff.isLoggedIn()) {
           getUserProfile();
-        }
+        } 
       } catch (error) {
-        // [MODIFIED] Handle error gracefully
-        console.warn("LIFF Init Warning:", error); // Use warn to avoid alarming red errors if it's expected
+        console.error("LIFF Init Error:", error);
         
-        const errorDiv = document.getElementById('liffErrorMsg');
-        if (errorDiv) {
-             // Check specific error message
-             if (error.message && error.message.includes("channel not found")) {
-                 errorDiv.innerText = "Error: ไม่พบ LIFF ID นี้ (กรุณาตรวจสอบ ID หรือสถานะ Publish ใน LINE Developers)";
-             } else {
-                 errorDiv.innerText = "Warning: การเชื่อมต่อ LINE มีปัญหา (" + error.message + ")";
+        // Show detailed error if LIFF ID is not found or invalid
+        if (error.message && (error.message.includes("not found") || error.code === "channel_not_found")) {
+             const errorDiv = document.getElementById('liffErrorMsg');
+             if(errorDiv) {
+                 errorDiv.innerText = "Error: LIFF ID ไม่ถูกต้อง หรือยังไม่ได้ Publish LIFF App (" + error.message + ")";
+                 errorDiv.classList.remove('hidden');
              }
-             errorDiv.classList.remove('hidden');
         }
       }
     }
@@ -396,7 +392,7 @@
       e.preventDefault(); 
 
       // ตรวจสอบ URL
-      if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbziub89LSLAYz2943w5Z6dS8CwX5_LVddbcf-mJMwvDGvStpvuQk3IIHG05MKZ0EhrH/exec" || SCRIPT_URL === "") {
+      if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbxuZh0bKDEyhbVBQEzIJp__mzA2-I95edn2t7SVNSlWsovVgicMMIvh-lX7N23ifK6K/exec" || SCRIPT_URL === "") {
         Swal.fire({ icon: 'error', title: 'Config Error', text: 'กรุณาระบุ URL ของ Google Web App ในโค้ดด้วยครับ' });
         return;
       }
@@ -410,20 +406,19 @@
         }
       });
 
-      // พยายามดึงข้อมูล LINE อีกครั้งถ้า Login อยู่แต่ field ว่าง
-      if (typeof liff !== 'undefined' && liff.isLoggedIn && liff.isLoggedIn()) {
+      // พยายามดึงข้อมูล LINE อีกครั้งถ้า Login อยู่แต่ field ว่าง (เช่นเปิดผ่าน Message Card)
+      if (typeof liff !== 'undefined' && liff.isInClient && liff.isInClient() && liff.isLoggedIn()) {
          if (!document.getElementById('lineUserId').value) {
              try {
                  const profile = await liff.getProfile();
                  document.getElementById('lineDisplayName').value = profile.displayName;
                  document.getElementById('lineUserId').value = profile.userId;
                  document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
-             } catch (error) { console.error(error); }
+             } catch (error) { console.error("Auto-fetch profile failed:", error); }
          }
       }
 
       const form = document.getElementById('vsoForm');
-      const fileInput = document.getElementById('fileInput');
       
       let purposeValue = form.purpose.value;
       if (purposeValue === 'other') {
@@ -442,6 +437,7 @@
         education: form.education.value,
         phone: form.phone.value,
         email: form.email.value,
+        manualLineId: form.manualLineId.value, // เพิ่ม LINE ID ที่กรอกเอง
         country: form.country.value,
         purpose: purposeValue,
         history: form.history.value,
@@ -455,7 +451,6 @@
       };
 
       const sendToGAS = () => {
-        // ใช้ fetch ส่งข้อมูลแบบ POST (text/plain) เพื่อเลี่ยง CORS preflight
         fetch(SCRIPT_URL, {
           method: 'POST',
           body: JSON.stringify(formData),
@@ -491,6 +486,7 @@
         });
       };
 
+      const fileInput = document.getElementById('fileInput');
       if (fileInput.files.length > 0) {
         const file = fileInput.files[0];
         if (file.size > 5 * 1024 * 1024) {
