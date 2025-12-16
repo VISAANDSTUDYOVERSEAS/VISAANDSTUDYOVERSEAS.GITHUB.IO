@@ -21,24 +21,29 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Prompt', 'sans-serif'],
-            display: ['Prompt', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              primary: '#0F2C67',   // น้ำเงินเข้ม (Deep Navy)
-              secondary: '#1E4F9E', // น้ำเงินสว่าง
-              accent: '#38BDF8',    // ฟ้าสดใส
-              light: '#F0F9FF',     // พื้นหลังฟ้าอ่อน
-              success: '#06C755',   // เขียว LINE
+    // ตรวจสอบว่า Tailwind โหลดสำเร็จหรือไม่ก่อนตั้งค่า
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Prompt', 'sans-serif'],
+              display: ['Prompt', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                primary: '#0F2C67',   // น้ำเงินเข้ม (Deep Navy)
+                secondary: '#1E4F9E', // น้ำเงินสว่าง
+                accent: '#38BDF8',    // ฟ้าสดใส
+                light: '#F0F9FF',     // พื้นหลังฟ้าอ่อน
+                success: '#06C755',   // เขียว LINE
+              }
             }
           }
         }
       }
+    } else {
+      console.error("Tailwind CSS library failed to load.");
     }
   </script>
 
@@ -96,9 +101,13 @@
         บริการให้คำปรึกษาและดำเนินการเรื่องวีซ่าและการเรียนต่อต่างประเทศครบวงจร
       </p>
       
-      <!-- LINE Status (Button Removed) -->
-      <div id="lineSection" class="min-h-[50px] flex justify-center items-center">
-        <!-- ข้อมูล Profile (แสดงเมื่อล็อกอินแล้ว) -->
+      <!-- LINE Status -->
+      <div id="lineSection" class="min-h-[50px] flex justify-center items-center flex-col">
+        <button id="btnLineLogin" onclick="loginLiff()" class="hidden bg-brand-success hover:bg-green-600 text-white px-6 py-2.5 rounded-full font-medium text-sm transition flex items-center shadow-lg transform hover:scale-105 ring-4 ring-green-500/30">
+          <i class="fa-brands fa-line text-2xl mr-2"></i>
+          ยืนยันตัวตนด้วย LINE
+        </button>
+        
         <div id="lineProfileInfo" class="hidden flex items-center bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20 shadow-lg">
           <div class="relative">
             <img id="lineProfileImg" src="" class="w-10 h-10 rounded-full border-2 border-white mr-3 hidden">
@@ -110,8 +119,7 @@
           </div>
         </div>
         
-        <!-- Error Message Container -->
-        <div id="liffErrorMsg" class="hidden text-red-300 bg-red-900/50 px-4 py-2 rounded-lg text-sm mt-2"></div>
+        <p id="liffErrorMessage" class="text-red-300 text-sm mt-2 hidden"></p>
       </div>
     </div>
   </div>
@@ -130,7 +138,7 @@
       </div>
 
       <form id="vsoForm" class="p-6 md:p-10 space-y-8" onsubmit="submitForm(event)">
-        <!-- (ส่วนแบบฟอร์มข้อมูลส่วนตัว, วีซ่า, ฯลฯ เหมือนเดิม) -->
+        <!-- ข้อมูลส่วนตัว -->
         <div class="space-y-5">
           <div class="flex items-center gap-2 text-brand-primary mb-2">
             <span class="bg-brand-light p-2 rounded-lg"><i class="fa-solid fa-user"></i></span>
@@ -167,20 +175,27 @@
               </div>
             </div>
           </div>
+          <!-- แถว เบอร์โทร และ LINE ID -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">เบอร์โทรศัพท์</label>
               <input type="tel" name="phone" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="08x-xxx-xxxx">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1.5">อีเมล</label>
-              <input type="email" name="email" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="yourname@email.com">
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">LINE ID</label>
+              <input type="text" name="manualLineId" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="ระบุ LINE ID">
             </div>
+          </div>
+          <!-- แถว อีเมล -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">อีเมล</label>
+            <input type="email" name="email" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="yourname@email.com">
           </div>
         </div>
 
         <hr class="border-gray-100">
 
+        <!-- ข้อมูลวีซ่า -->
         <div class="space-y-6">
           <div class="flex items-center gap-2 text-brand-primary mb-2">
             <span class="bg-brand-light p-2 rounded-lg"><i class="fa-solid fa-plane-departure"></i></span>
@@ -290,9 +305,9 @@
 
   <script>
     // --- ตั้งค่า ---
-    const LIFF_ID = "2008703766-jGnYhSMG"; 
+    const LIFF_ID = "2008709490-FPzLWusz"; 
     // !!! URL Web App ที่อัปเดตใหม่ !!!
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDW54Ra12M56j4tz712T7lQb8xj3TyULMm3adfzwpmYPV_LvlhzcBWc-jKH2ULSP_cNw/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz6gKlaidsx2IPcX_tkGlU38Bm-NLzZyJM6XUjXajsPvvlnM7qBK-qqhBjV2k7onXTf/exec"; 
 
     // --- LIFF ---
     async function initializeLiff() {
@@ -300,18 +315,24 @@
         await liff.init({ liffId: LIFF_ID });
         if (liff.isLoggedIn()) {
           getUserProfile();
+        } else {
+          document.getElementById('btnLineLogin').classList.remove('hidden');
         }
       } catch (error) {
         console.error("LIFF Init Error:", error);
-        
-        // Show detailed error if LIFF ID is not found
-        if (error.message && error.message.includes("not found")) {
-             const errorDiv = document.getElementById('liffErrorMsg');
-             if(errorDiv) {
-                 errorDiv.innerText = "Error: LIFF ID ไม่ถูกต้อง (Not Found)";
-                 errorDiv.classList.remove('hidden');
-             }
+        let errorMessage = "การเชื่อมต่อกับ LINE มีปัญหา";
+        if (error.message.includes("not found")) {
+            errorMessage = "ไม่พบ LIFF ID นี้ กรุณาตรวจสอบ LIFF ID ของคุณใน LINE Developers Console";
         }
+        document.getElementById('liffErrorMessage').textContent = `หมายเหตุ: ${errorMessage} (${error.code || 'Unknown Error'})`;
+        document.getElementById('liffErrorMessage').classList.remove('hidden');
+        document.getElementById('btnLineLogin').classList.add('hidden');
+      }
+    }
+
+    function loginLiff() {
+      if (!liff.isLoggedIn()) {
+        liff.login();
       }
     }
 
@@ -321,6 +342,9 @@
         document.getElementById('lineDisplayName').value = profile.displayName;
         document.getElementById('lineUserId').value = profile.userId;
         document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
+        
+        document.getElementById('btnLineLogin').classList.add('hidden');
+        document.getElementById('liffErrorMessage').classList.add('hidden'); 
         
         const infoDiv = document.getElementById('lineProfileInfo');
         document.getElementById('lineProfileName').textContent = profile.displayName;
@@ -384,7 +408,6 @@
     async function submitForm(e) {
       e.preventDefault(); 
 
-      // ตรวจสอบ URL
       if (SCRIPT_URL === "YOUR_GAS_WEB_APP_URL" || SCRIPT_URL === "") {
         Swal.fire({ icon: 'error', title: 'Config Error', text: 'กรุณาระบุ URL ของ Google Web App ในโค้ดด้วยครับ' });
         return;
@@ -399,7 +422,6 @@
         }
       });
 
-      // พยายามดึงข้อมูล LINE อีกครั้งถ้า Login อยู่แต่ field ว่าง
       if (typeof liff !== 'undefined' && liff.isLoggedIn && liff.isLoggedIn()) {
          if (!document.getElementById('lineUserId').value) {
              try {
@@ -431,6 +453,7 @@
         education: form.education.value,
         phone: form.phone.value,
         email: form.email.value,
+        manualLineId: form.manualLineId.value, // เพิ่มค่า LINE ID ที่กรอกเอง
         country: form.country.value,
         purpose: purposeValue,
         history: form.history.value,
@@ -444,7 +467,6 @@
       };
 
       const sendToGAS = () => {
-        // ใช้ fetch ส่งข้อมูลแบบ POST (text/plain) เพื่อเลี่ยง CORS preflight
         fetch(SCRIPT_URL, {
           method: 'POST',
           body: JSON.stringify(formData),
