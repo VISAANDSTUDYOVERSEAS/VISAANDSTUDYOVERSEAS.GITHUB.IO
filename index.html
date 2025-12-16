@@ -292,7 +292,7 @@
     // --- ตั้งค่า ---
     const LIFF_ID = "2008709490-FPzLWusz"; 
     // !!! URL Web App ที่อัปเดตใหม่ !!!
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDW54Ra12M56j4tz712T7lQb8xj3TyULMm3adfzwpmYPV_LvlhzcBWc-jKH2ULSP_cNw/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbziub89LSLAYz2943w5Z6dS8CwX5_LVddbcf-mJMwvDGvStpvuQk3IIHG05MKZ0EhrH/exec"; 
 
     // --- LIFF ---
     async function initializeLiff() {
@@ -396,7 +396,7 @@
       e.preventDefault(); 
 
       // ตรวจสอบ URL
-      if (SCRIPT_URL === "YOUR_GAS_WEB_APP_URL" || SCRIPT_URL === "") {
+      if (SCRIPT_URL === "https://script.google.com/macros/s/AKfycbziub89LSLAYz2943w5Z6dS8CwX5_LVddbcf-mJMwvDGvStpvuQk3IIHG05MKZ0EhrH/exec" || SCRIPT_URL === "") {
         Swal.fire({ icon: 'error', title: 'Config Error', text: 'กรุณาระบุ URL ของ Google Web App ในโค้ดด้วยครับ' });
         return;
       }
