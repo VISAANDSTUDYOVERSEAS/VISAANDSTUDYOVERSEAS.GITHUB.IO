@@ -64,8 +64,11 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col">
 
+  <!-- Hidden fields for LINE Data -->
   <input type="hidden" id="lineDisplayName" value="">
   <input type="hidden" id="lineUserId" value="">
+  <!-- เพิ่มช่องเก็บ URL รูปภาพ -->
+  <input type="hidden" id="linePictureUrl" value="">
 
   <!-- Navbar -->
   <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -317,6 +320,7 @@
         const profile = await liff.getProfile();
         document.getElementById('lineDisplayName').value = profile.displayName;
         document.getElementById('lineUserId').value = profile.userId;
+        document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
         
         document.getElementById('btnLineLogin').classList.add('hidden');
         const infoDiv = document.getElementById('lineProfileInfo');
@@ -403,6 +407,7 @@
                  const profile = await liff.getProfile();
                  document.getElementById('lineDisplayName').value = profile.displayName;
                  document.getElementById('lineUserId').value = profile.userId;
+                 document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
              } catch (error) { console.error(error); }
          }
       }
@@ -434,6 +439,7 @@
         occupation: occupationValue,
         lineDisplayName: document.getElementById('lineDisplayName').value,
         lineUserId: document.getElementById('lineUserId').value,
+        linePictureUrl: document.getElementById('linePictureUrl').value,
         fileData: null,
         fileName: null
       };
