@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visa & Study Overseas Registration</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Load Prompt Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome (Icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- LINE LIFF SDK -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'sans-serif'],
+            display: ['Prompt', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              primary: '#0F2C67',   // น้ำเงินเข้ม (Deep Navy)
+              secondary: '#1E4F9E', // น้ำเงินสว่าง
+              accent: '#38BDF8',    // ฟ้าสดใส
+              light: '#F0F9FF',     // พื้นหลังฟ้าอ่อน
+              success: '#06C755',   // เขียว LINE
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Prompt', sans-serif; }
+    
+    .hero-bg {
+      background-color: #0F2C67;
+      background-image: url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop");
+      background-blend-mode: multiply;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .custom-input {
+      transition: all 0.3s ease;
+    }
+    .custom-input:focus {
+      border-color: #1E4F9E;
+      box-shadow: 0 0 0 4px rgba(30, 79, 158, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+  <!-- Hidden fields for LINE Data -->
+  <input type="hidden" id="lineDisplayName" value="">
+  <input type="hidden" id="lineUserId" value="">
+  <!-- เพิ่มช่องเก็บ URL รูปภาพ -->
+  <input type="hidden" id="linePictureUrl" value="">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="https://img2.pic.in.th/pic/-5a439dd98773b393c.png" alt="VSO Logo" class="h-12 w-auto">
+        <div class="leading-tight">
+          <h1 class="text-lg font-bold text-brand-primary tracking-wide">VSO</h1>
+          <p class="text-[10px] text-gray-500 font-medium tracking-wider">VISA & STUDY OVERSEAS</p>
+        </div>
+      </div>
+      <div class="hidden md:flex gap-4 text-sm font-medium text-gray-600">
+        <a href="https://www.visastudyoverseas.com/th" target="_blank" class="hover:text-brand-primary transition">หน้าแรก</a>
+        <a href="https://www.visastudyoverseas.com/th/more-about-me" target="_blank" class="hover:text-brand-primary transition">บริการของเรา</a>
+        <a href="https://www.visastudyoverseas.com/th/team-3" target="_blank" class="hover:text-brand-primary transition">ติดต่อเรา</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero-bg text-white pt-16 pb-24 px-4 text-center">
+    <div class="container mx-auto max-w-4xl">
+      <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">เปิดประตูสู่โลกกว้างไปกับ VSO</h1>
+      <p class="text-blue-100 text-lg md:text-xl font-light max-w-2xl mx-auto mb-6">
+        บริการให้คำปรึกษาและดำเนินการเรื่องวีซ่าและการเรียนต่อต่างประเทศครบวงจร
+      </p>
+      
+      <!-- LINE Status (No Button as requested) -->
+      <div id="lineSection" class="min-h-[50px] flex justify-center items-center">
+        <!-- ข้อมูล Profile (แสดงเมื่อล็อกอินแล้ว) -->
+        <div id="lineProfileInfo" class="hidden flex items-center bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20 shadow-lg">
+          <div class="relative">
+            <img id="lineProfileImg" src="" class="w-10 h-10 rounded-full border-2 border-white mr-3 hidden">
+            <div class="absolute bottom-0 right-3 w-3 h-3 bg-brand-success border-2 border-white rounded-full"></div>
+          </div>
+          <div class="text-left">
+            <span class="block text-blue-200 text-xs">เข้าสู่ระบบโดย</span>
+            <span id="lineProfileName" class="text-white font-bold text-sm"></span>
+          </div>
+        </div>
+        
+        <!-- Error Message Container (For Debugging) -->
+        <div id="liffErrorMsg" class="hidden text-red-100 bg-red-900/50 px-4 py-2 rounded-lg text-sm mt-2 border border-red-400/30"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Form -->
+  <main class="container mx-auto px-4 -mt-16 mb-12 relative z-10 max-w-3xl flex-grow">
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+      <div class="bg-gray-50 px-8 py-6 border-b border-gray-100 flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold text-brand-primary">แบบฟอร์มลงทะเบียน</h2>
+          <p class="text-gray-500 text-sm mt-1">กรอกข้อมูลเพื่อรับคำปรึกษาฟรี</p>
+        </div>
+        <div class="hidden sm:block">
+           <i class="fa-solid fa-file-contract text-4xl text-brand-secondary opacity-20"></i>
+        </div>
+      </div>
+
+      <form id="vsoForm" class="p-6 md:p-10 space-y-8" onsubmit="submitForm(event)">
+        <!-- (ส่วนแบบฟอร์มข้อมูลส่วนตัว, วีซ่า, ฯลฯ เหมือนเดิม) -->
+        <div class="space-y-5">
+          <div class="flex items-center gap-2 text-brand-primary mb-2">
+            <span class="bg-brand-light p-2 rounded-lg"><i class="fa-solid fa-user"></i></span>
+            <h3 class="text-lg font-bold">ข้อมูลส่วนตัว (Personal Info)</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">ชื่อจริง</label>
+              <input type="text" name="firstName" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700 placeholder-gray-400">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">นามสกุล</label>
+              <input type="text" name="lastName" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700 placeholder-gray-400">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+             <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">อายุ (ปี)</label>
+              <input type="number" name="age" min="1" max="100" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">วุฒิการศึกษาล่าสุด</label>
+              <div class="relative">
+                <select name="education" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700 appearance-none cursor-pointer">
+                  <option value="" disabled selected>-- เลือกวุฒิการศึกษา --</option>
+                  <option value="มัธยมศึกษาตอนปลาย">มัธยมศึกษาตอนปลาย (ม.6 / ปวช.)</option>
+                  <option value="อนุปริญญา / ปวส.">อนุปริญญา / ปวส.</option>
+                  <option value="ปริญญาตรี">ปริญญาตรี</option>
+                  <option value="ปริญญาโท">ปริญญาโท</option>
+                  <option value="ปริญญาเอก">ปริญญาเอก</option>
+                  <option value="อื่นๆ">อื่นๆ</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500"><i class="fa-solid fa-chevron-down text-xs"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">เบอร์โทรศัพท์</label>
+              <input type="tel" name="phone" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="08x-xxx-xxxx">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">อีเมล</label>
+              <input type="email" name="email" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="yourname@email.com">
+            </div>
+          </div>
+          <!-- เพิ่มช่องกรอก LINE ID -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">LINE ID</label>
+            <input type="text" name="manualLineId" class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="ระบุ LINE ID ของคุณ">
+          </div>
+        </div>
+
+        <hr class="border-gray-100">
+
+        <div class="space-y-6">
+          <div class="flex items-center gap-2 text-brand-primary mb-2">
+            <span class="bg-brand-light p-2 rounded-lg"><i class="fa-solid fa-plane-departure"></i></span>
+            <h3 class="text-lg font-bold">ข้อมูลการยื่นวีซ่า (Visa Details)</h3>
+          </div>
+          <!-- (1) ประเทศ -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">(1) ต้องการยื่นวีซ่าสำหรับประเทศใด?</label>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+               <label class="cursor-pointer"><input type="radio" name="country" value="Australia" class="peer sr-only" required><div class="p-3 border rounded-lg text-center hover:bg-brand-light peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition"><span class="block text-sm font-medium">Australia</span></div></label>
+               <label class="cursor-pointer"><input type="radio" name="country" value="New Zealand" class="peer sr-only"><div class="p-3 border rounded-lg text-center hover:bg-brand-light peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition"><span class="block text-sm font-medium">New Zealand</span></div></label>
+               <label class="cursor-pointer"><input type="radio" name="country" value="Canada" class="peer sr-only"><div class="p-3 border rounded-lg text-center hover:bg-brand-light peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition"><span class="block text-sm font-medium">Canada</span></div></label>
+               <label class="cursor-pointer"><input type="radio" name="country" value="Malta" class="peer sr-only"><div class="p-3 border rounded-lg text-center hover:bg-brand-light peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition"><span class="block text-sm font-medium">Malta</span></div></label>
+               <label class="cursor-pointer"><input type="radio" name="country" value="Dubai" class="peer sr-only"><div class="p-3 border rounded-lg text-center hover:bg-brand-light peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition"><span class="block text-sm font-medium">Dubai</span></div></label>
+            </div>
+          </div>
+          <!-- (2) วัตถุประสงค์ -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">(2) วัตถุประสงค์หลักในการเดินทาง?</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-brand-light cursor-pointer transition has-[:checked]:border-brand-primary has-[:checked]:bg-blue-50"><input type="radio" name="purpose" value="วีซ่านักเรียน" required class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherPurpose(false)"><span class="ml-2 text-sm text-gray-700">วีซ่านักเรียน</span></label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-brand-light cursor-pointer transition has-[:checked]:border-brand-primary has-[:checked]:bg-blue-50"><input type="radio" name="purpose" value="วีซ่าครอบครัว" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherPurpose(false)"><span class="ml-2 text-sm text-gray-700">วีซ่าครอบครัว</span></label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-brand-light cursor-pointer transition has-[:checked]:border-brand-primary has-[:checked]:bg-blue-50"><input type="radio" name="purpose" value="วีซ่าท่องเที่ยว" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherPurpose(false)"><span class="ml-2 text-sm text-gray-700">วีซ่าท่องเที่ยว</span></label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-brand-light cursor-pointer transition has-[:checked]:border-brand-primary has-[:checked]:bg-blue-50"><input type="radio" name="purpose" value="ต่อวีซ่า" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherPurpose(false)"><span class="ml-2 text-sm text-gray-700">ต่อวีซ่า</span></label>
+              <div class="sm:col-span-2">
+                 <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-brand-light cursor-pointer transition has-[:checked]:border-brand-primary has-[:checked]:bg-blue-50"><input type="radio" name="purpose" value="other" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherPurpose(true)"><span class="ml-2 text-sm text-gray-700">อื่นๆ</span></label>
+                <div id="otherPurposeContainer" class="hidden mt-2 ml-4 pl-4 border-l-2 border-brand-accent">
+                   <input type="text" id="otherPurposeInput" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm focus:border-brand-primary outline-none" placeholder="โปรดระบุวัตถุประสงค์...">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- (3) ประวัติ & (4) Show Money -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">(3) ประวัติการยื่นวีซ่า</label>
+              <div class="relative">
+                 <select name="history" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700 appearance-none cursor-pointer">
+                  <option value="" disabled selected>-- เลือกประวัติ --</option>
+                  <option value="ไม่เคยยื่นมาก่อน / พาสปอร์ตขาว">ไม่เคยยื่นมาก่อน / พาสปอร์ตขาว</option>
+                  <option value="เคยได้วีซ่าประเทศอื่นมาก่อน">เคยได้วีซ่าประเทศอื่นมาก่อน</option>
+                  <option value="เคยถูกปฏิเสธวีซ่ามาก่อน">เคยถูกปฏิเสธวีซ่ามาก่อน</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500"><i class="fa-solid fa-chevron-down text-xs"></i></div>
+              </div>
+            </div>
+             <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">(4) จำนวนเงินที่สามารถแสดงได้ในการยื่นวีซ่า</label>
+              <input type="text" name="showMoney" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="เช่น 500,000">
+            </div>
+          </div>
+          <!-- (5) อาชีพ -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">(5) อาชีพปัจจุบันของผู้ยื่น?</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50"><input type="radio" name="occupation" value="พนักงานบริษัท / ข้าราชการ" required class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherOccupation(false)"><span class="text-sm text-gray-700">พนักงานบริษัท / ข้าราชการ</span></label>
+              <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50"><input type="radio" name="occupation" value="เจ้าของกิจการ / จดทะเบียนบริษัท" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherOccupation(false)"><span class="text-sm text-gray-700">เจ้าของกิจการ</span></label>
+              <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50"><input type="radio" name="occupation" value="ฟรีแลนซ์ / ค้าขายออนไลน์" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherOccupation(false)"><span class="text-sm text-gray-700">ฟรีแลนซ์ / ค้าขายออนไลน์</span></label>
+              <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50"><input type="radio" name="occupation" value="นักเรียน / นักศึกษา / ยังไม่มีงานทำ" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherOccupation(false)"><span class="text-sm text-gray-700">นักเรียน / นักศึกษา</span></label>
+              <div class="sm:col-span-2">
+                <label class="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-gray-50"><input type="radio" name="occupation" value="other" class="text-brand-primary focus:ring-brand-primary" onchange="toggleOtherOccupation(true)"><span class="text-sm text-gray-700">อื่นๆ</span></label>
+                <div id="otherOccupationContainer" class="hidden mt-2 ml-4 pl-4 border-l-2 border-brand-accent">
+                   <input type="text" id="otherOccupationInput" class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm focus:border-brand-primary outline-none" placeholder="โปรดระบุอาชีพ...">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Upload -->
+          <div class="bg-brand-light p-6 rounded-xl border border-blue-100 border-dashed border-2 text-center relative group hover:border-brand-secondary transition">
+            <div class="space-y-2">
+              <div class="mx-auto h-12 w-12 text-brand-secondary"><i class="fa-brands fa-line text-4xl"></i></div>
+              <h4 class="text-sm font-semibold text-brand-primary">อัปโหลด QR Code Line</h4>
+              <p class="text-xs text-gray-500">เพื่อความสะดวกในการติดต่อกลับ</p>
+            </div>
+            <input type="file" id="fileInput" name="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"/>
+            <p id="fileNameDisplay" class="mt-2 text-xs text-brand-secondary font-medium hidden"></p>
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" id="submitBtn" class="btn-font w-full bg-brand-primary hover:bg-brand-secondary text-white text-lg font-bold py-4 px-6 rounded-xl shadow-lg transform transition hover:-translate-y-1 hover:shadow-xl flex justify-center items-center gap-2">
+            <span>ยืนยันข้อมูล</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-brand-primary text-white py-10 mt-auto">
+    <div class="container mx-auto px-4 text-center">
+      <div class="mb-6 flex justify-center items-center gap-3">
+         <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-brand-primary font-bold">V</div>
+         <h2 class="text-xl font-bold tracking-wider">VSO</h2>
+      </div>
+      <p class="text-blue-200 text-sm mb-4">ผู้เชี่ยวชาญด้านวีซ่าและการศึกษาต่อต่างประเทศ ให้คำปรึกษาด้วยความจริงใจ</p>
+      <div class="flex justify-center gap-6 mb-6">
+        <a href="https://www.facebook.com/visastudyoverseas?locale=th_TH" target="_blank" class="text-white hover:text-brand-accent transition"><i class="fa-brands fa-facebook text-xl"></i></a>
+        <a href="https://page.line.biz/account-page/916447623753202/profile" target="_blank" class="text-white hover:text-brand-accent transition"><i class="fa-brands fa-line text-xl"></i></a>
+        <a href="mailto:info@visastudyoverseas.com" class="text-white hover:text-brand-accent transition"><i class="fa-solid fa-envelope text-xl"></i></a>
+      </div>
+      <div class="border-t border-blue-900 pt-6 text-xs text-blue-300">
+        <p>Copyright &copy; 2024 Visa & Study Overseas. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- ตั้งค่า ---
+    const LIFF_ID = "2008709490-FPzLWusz"; 
+    // !!! URL Web App ที่อัปเดตใหม่ !!!
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwFnA_lL4H79S_bO3FFVvZQvoVMp-cei41rIFjtzySbFBBLeEcobSOf0z2dGtgpXabq/exec"; 
+
+    // --- LIFF ---
+    async function initializeLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        
+        // ถ้าล็อกอินแล้ว ให้ดึงข้อมูลและแสดง UI ว่าล็อกอินแล้ว
+        if (liff.isLoggedIn()) {
+          getUserProfile();
+        } 
+      } catch (error) {
+        console.error("LIFF Init Error:", error);
+        
+        // Show detailed error if LIFF ID is not found or invalid
+        if (error.message && (error.message.includes("not found") || error.code === "channel_not_found")) {
+             const errorDiv = document.getElementById('liffErrorMsg');
+             if(errorDiv) {
+                 errorDiv.innerText = "Error: LIFF ID ไม่ถูกต้อง หรือยังไม่ได้ Publish LIFF App (" + error.message + ")";
+                 errorDiv.classList.remove('hidden');
+             }
+        }
+      }
+    }
+
+    async function getUserProfile() {
+      try {
+        const profile = await liff.getProfile();
+        document.getElementById('lineDisplayName').value = profile.displayName;
+        document.getElementById('lineUserId').value = profile.userId;
+        document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
+        
+        const infoDiv = document.getElementById('lineProfileInfo');
+        document.getElementById('lineProfileName').textContent = profile.displayName;
+        const img = document.getElementById('lineProfileImg');
+        infoDiv.classList.remove('hidden');
+        
+        if(profile.pictureUrl) {
+          img.src = profile.pictureUrl;
+          img.classList.remove('hidden');
+        }
+      } catch (error) {
+        console.error("Profile Error:", error);
+      }
+    }
+
+    window.onload = function() {
+      initializeLiff();
+    };
+
+    // --- UI Logic ---
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const fileName = e.target.files[0]?.name;
+      const display = document.getElementById('fileNameDisplay');
+      if(fileName) {
+        display.textContent = "ไฟล์ที่เลือก: " + fileName;
+        display.classList.remove('hidden');
+      } else {
+        display.classList.add('hidden');
+      }
+    });
+
+    function toggleOtherPurpose(show) {
+      const container = document.getElementById('otherPurposeContainer');
+      const input = document.getElementById('otherPurposeInput');
+      if (show) {
+        container.classList.remove('hidden');
+        input.setAttribute('required', 'true');
+        input.focus();
+      } else {
+        container.classList.add('hidden');
+        input.removeAttribute('required');
+        input.value = '';
+      }
+    }
+
+    function toggleOtherOccupation(show) {
+      const container = document.getElementById('otherOccupationContainer');
+      const input = document.getElementById('otherOccupationInput');
+      if (show) {
+        container.classList.remove('hidden');
+        input.setAttribute('required', 'true');
+        input.focus();
+      } else {
+        container.classList.add('hidden');
+        input.removeAttribute('required');
+        input.value = '';
+      }
+    }
+
+    // --- Submit Logic (Fetch to GAS) ---
+    async function submitForm(e) {
+      e.preventDefault(); 
+
+      // ลบส่วนตรวจสอบ Config Error ออกแล้ว
+
+      Swal.fire({
+        title: 'กำลังตรวจสอบข้อมูล...',
+        html: 'กรุณารอสักครู่ ระบบกำลังบันทึกข้อมูล',
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // พยายามดึงข้อมูล LINE อีกครั้งถ้า Login อยู่แต่ field ว่าง (เช่นเปิดผ่าน Message Card)
+      if (typeof liff !== 'undefined' && liff.isInClient && liff.isInClient() && liff.isLoggedIn()) {
+         if (!document.getElementById('lineUserId').value) {
+             try {
+                 const profile = await liff.getProfile();
+                 document.getElementById('lineDisplayName').value = profile.displayName;
+                 document.getElementById('lineUserId').value = profile.userId;
+                 document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
+             } catch (error) { console.error("Auto-fetch profile failed:", error); }
+         }
+      }
+
+      const form = document.getElementById('vsoForm');
+      
+      let purposeValue = form.purpose.value;
+      if (purposeValue === 'other') {
+        purposeValue = 'อื่นๆ: ' + document.getElementById('otherPurposeInput').value;
+      }
+
+      let occupationValue = form.occupation.value;
+      if (occupationValue === 'other') {
+        occupationValue = 'อื่นๆ: ' + document.getElementById('otherOccupationInput').value;
+      }
+
+      const formData = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        age: form.age.value,
+        education: form.education.value,
+        phone: form.phone.value,
+        email: form.email.value,
+        manualLineId: form.manualLineId.value, // เพิ่ม LINE ID ที่กรอกเอง
+        country: form.country.value,
+        purpose: purposeValue,
+        history: form.history.value,
+        showMoney: form.showMoney.value,
+        occupation: occupationValue,
+        lineDisplayName: document.getElementById('lineDisplayName').value,
+        lineUserId: document.getElementById('lineUserId').value,
+        linePictureUrl: document.getElementById('linePictureUrl').value,
+        fileData: null,
+        fileName: null
+      };
+
+      const sendToGAS = () => {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: {
+             "Content-Type": "text/plain;charset=utf-8"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            Swal.fire({
+              icon: 'success',
+              title: 'บันทึกสำเร็จ!',
+              text: 'เจ้าหน้าที่จะติดต่อกลับโดยเร็วที่สุด',
+              confirmButtonColor: '#0F2C67',
+              confirmButtonText: 'ตกลง'
+            }).then(() => {
+              form.reset();
+              document.getElementById('otherPurposeContainer').classList.add('hidden');
+              document.getElementById('otherOccupationContainer').classList.add('hidden');
+              document.getElementById('fileNameDisplay').classList.add('hidden');
+            });
+          } else {
+            throw new Error(data.message);
+          }
+        })
+        .catch(error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'เกิดข้อผิดพลาด',
+            text: 'ไม่สามารถบันทึกข้อมูลได้: ' + error.message,
+          });
+        });
+      };
+
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        if (file.size > 5 * 1024 * 1024) {
+          Swal.fire({ icon: 'warning', title: 'ไฟล์ใหญ่เกินไป', text: 'รูปภาพต้องไม่เกิน 5MB' });
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          formData.fileData = e.target.result;
+          formData.fileName = file.name;
+          sendToGAS();
+        };
+        reader.readAsDataURL(file);
+      } else {
+        sendToGAS();
+      }
+    }
+  </script>
+</body>
+</html>
