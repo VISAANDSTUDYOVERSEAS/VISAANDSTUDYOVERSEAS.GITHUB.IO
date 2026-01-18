@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เลือกสถาบันเรียนภาษา - VSO Visa & Study Overseas</title>
     
-    <!-- Google Fonts: Prompt -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,237 +21,354 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        prompt: ['Prompt', 'sans-serif'],
+                        sans: ['Inter', 'Prompt', 'sans-serif'],
+                        thai: ['Prompt', 'sans-serif'],
                     },
                     colors: {
-                        vso: {
-                            navy: '#0f2942',     /* VSO Dark Navy */
-                            blue: '#1c4a7e',     /* VSO Primary Blue */
-                            red: '#e31e24',      /* VSO Accent Red */
-                            gray: '#f4f6f9'
-                        }
+                        vsoNavy: '#002347',   /* Official Navy */
+                        vsoBlue: '#003366',   /* Secondary Blue */
+                        vsoOrange: '#F26522', /* Official Orange */
+                        vsoGray: '#F4F7FA',   /* Corporate Background */
+                    },
+                    screens: {
+                        'xs': '480px',
                     },
                     boxShadow: {
-                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
-                        'hover': '0 10px 25px -5px rgba(28, 74, 126, 0.15)',
+                        'card': '0 4px 6px -1px rgba(0, 35, 71, 0.05), 0 2px 4px -1px rgba(0, 35, 71, 0.03)',
+                        'card-hover': '0 20px 25px -5px rgba(0, 35, 71, 0.1), 0 10px 10px -5px rgba(0, 35, 71, 0.04)',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        body { font-family: 'Prompt', sans-serif; }
-        .hero-pattern {
-            background-color: #0f2942;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231c4a7e' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        body {
+            background-color: #F4F7FA;
+            color: #334155;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* Corporate Card Style */
+        .corporate-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .corporate-card:hover {
+            transform: translateY(-4px);
+            border-color: #F26522;
+            z-index: 10;
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-vso-gray text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="font-sans antialiased selection:bg-vsoOrange selection:text-white">
 
-    <!-- 1. Top Navigation Bar (Mockup to match main site) -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div class="container mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
-            <!-- Logo with Link -->
-            <a href="https://www.visastudyoverseas.com/th" target="_blank" class="flex items-center hover:opacity-90 transition-opacity">
-                <img src="https://img2.pic.in.th/pic/-5a439dd98773b393c.png" alt="VSO Logo" class="h-12 md:h-14 w-auto object-contain">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 md:py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- Logo Zone -->
+            <a href="https://www.visastudyoverseas.com/th" class="flex items-center gap-3 group shrink-0">
+                <img src="https://img5.pic.in.th/file/secure-sv1/-5dddeed44d7957161.png" 
+                     alt="VSO Logo" 
+                     class="h-10 md:h-12 w-auto object-contain">
             </a>
             
-            <!-- Desktop Menu (Simplified) -->
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
-                <!-- Removed previous menu items as requested -->
-                <a href="https://lin.ee/yJNI2w2" target="_blank" class="px-5 py-2 bg-vso-blue text-white rounded-full hover:bg-vso-navy transition-colors shadow-md">ติดต่อเรา</a>
+            <!-- Buttons Zone -->
+            <div class="flex items-center gap-3 text-sm font-medium shrink-0">
+                <a href="tel:020000000" class="hidden lg:flex items-center gap-2 text-vsoNavy hover:text-vsoOrange transition-colors px-3 py-2">
+                    <i data-lucide="phone" class="w-4 h-4"></i> <span class="font-thai">โทรสอบถาม</span>
+                </a>
+                <a href="https://lin.ee/nHohUpi" target="_blank" class="bg-vsoBlue hover:bg-vsoNavy text-white px-5 py-2 rounded-md font-thai transition-colors flex items-center gap-2 shadow-sm">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <span>ติดต่อเรา</span>
+                </a>
             </div>
-
-            <!-- Mobile Menu Icon -->
-            <button class="md:hidden text-slate-600">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- 2. Hero Section (Corporate Style) -->
-    <header class="hero-pattern text-white py-16 md:py-20 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-vso-blue/20 to-transparent"></div>
-        
-        <div class="container mx-auto px-4 md:px-8 relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-light text-blue-100 mb-6 border border-white/10">
-                <i data-lucide="graduation-cap" class="w-4 h-4 text-vso-red"></i>
-                <span>วางแผนอนาคตการเรียนต่อของคุณ</span>
-            </div>
-            
-            <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-                เลือกสถาบันที่ใช่ <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">เพื่ออนาคตที่ไกลกว่า</span>
-            </h1>
-            
-            <p class="text-slate-300 text-lg max-w-2xl mx-auto font-light mb-8">
-                VSO คัดสรรสถาบันคุณภาพมาให้คุณแล้ว คลิกที่การ์ดด้านล่างเพื่อดู <span class="text-white font-medium border-b border-vso-red">โปรโมชั่นและราคาพิเศษ</span>
-            </p>
         </div>
     </header>
 
-    <!-- 3. Content Section -->
-    <main class="flex-grow container mx-auto px-4 md:px-8 py-12 -mt-10 relative z-20">
+    <main class="max-w-7xl mx-auto px-4 pt-8 md:pt-12 flex-grow w-full">
         
-        <!-- Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
+        <!-- Hero Text -->
+        <div class="text-center mb-10 md:mb-16">
+            <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full shadow-sm text-sm font-medium text-vsoBlue mb-4 border border-slate-200">
+                <i data-lucide="map-pin" class="w-4 h-4 text-vsoOrange"></i>
+                <span>วางแผนเรียนต่อออสเตรเลีย</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 tracking-tight text-vsoNavy leading-tight">
+                เลือกสถาบันที่ <span class="text-vsoOrange underline decoration-4 decoration-vsoOrange/20 underline-offset-4">ใช่สำหรับคุณ</span>
+            </h1>
+            <p class="text-slate-600 text-base md:text-xl font-thai font-light max-w-2xl mx-auto px-4">
+                คลิกที่การ์ดเพื่อเข้าดูโปรโมชั่นและราคาจากเว็บไซต์สถาบันโดยตรง
+            </p>
+        </div>
+
+        <!-- School Cards Grid (Updated to 3 columns) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+
             <!-- Card 1: Greenwich College -->
             <a href="https://visaandstudyoverseas.github.io/greenwich" target="_blank" rel="noopener noreferrer" 
-               class="group bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-hover transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1">
+               class="corporate-card rounded-xl shadow-card hover:shadow-card-hover group">
                 
-                <!-- Card Header (Brand Color Stripe) -->
-                <div class="h-2 w-full bg-[#EC008C]"></div>
-                
-                <!-- Logo Area -->
-                <div class="p-6 flex items-center justify-center bg-gray-50 border-b border-gray-100 h-32 relative overflow-hidden group-hover:bg-white transition-colors">
-                     <!-- Background Blob for subtle effect -->
-                     <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#EC008C]/5 rounded-full blur-xl group-hover:bg-[#EC008C]/10 transition-colors"></div>
-                     <img src="https://img5.pic.in.th/file/secure-sv1/Greenwich-_LOGO.png.webp" alt="Greenwich Logo" class="max-h-16 max-w-[80%] object-contain relative z-10">
+                <!-- Header Banner -->
+                <div class="h-40 w-full bg-gradient-to-br from-[#EC008C] to-[#881c5c] relative flex items-center justify-center p-6 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-12 -mt-12"></div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-black/5 rounded-full -ml-8 -mb-8"></div>
+
+                    <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg transform transition-transform duration-300 group-hover:scale-110 w-48 h-20 flex items-center justify-center border border-white/50">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/Greenwich-_LOGO.png.webp" alt="Greenwich College Logo" class="max-w-full max-h-full object-contain">
+                    </div>
+
+                    <div class="absolute top-4 right-4 bg-white text-vsoOrange rounded-full p-2 shadow-lg opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </div>
                 </div>
 
                 <!-- Content -->
-                <div class="p-6 flex-1 flex flex-col">
+                <div class="p-6 flex-1 flex flex-col bg-white">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-xl font-bold text-vso-navy group-hover:text-[#EC008C] transition-colors">Greenwich College</h3>
-                        <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-[#EC008C] transition-colors"></i>
+                        <h3 class="text-xl font-bold text-vsoNavy group-hover:text-vsoOrange transition-colors">
+                            Greenwich College
+                        </h3>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-vsoOrange transition-colors"></i>
                     </div>
 
                     <div class="mb-4">
-                        <span class="inline-block px-3 py-1 bg-pink-50 text-[#EC008C] text-xs font-semibold rounded-md border border-pink-100">
-                            เฟรนด์ลี่ ทันสมัย
+                        <span class="inline-block px-3 py-1 bg-pink-50 text-pink-600 border border-pink-100 text-xs font-bold uppercase tracking-wider rounded-md">
+                            เฟรนด์ลี่ ทันสมัย ยืดหยุ่น
                         </span>
                     </div>
                     
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                        แคมปัสทันสมัย บรรยากาศเป็นกันเอง เหมาะกับคนรุ่นใหม่ที่ชอบความยืดหยุ่น เรียนสนุก
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6 font-light">
+                        แคมปัสสีชมพูสดใส บรรยากาศเป็นกันเองสุดๆ เหมาะกับคนรุ่นใหม่ที่ชอบความยืดหยุ่น เรียนสนุก กิจกรรมแน่น
                     </p>
 
-                    <!-- Features List -->
-                    <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
-                        <div class="flex items-center text-sm text-slate-600">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-[#EC008C]"></i>
+                    <div class="mt-auto space-y-3 pt-4 border-t border-slate-100">
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-pink-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
                             <span>เดินทางสะดวก ใจกลางเมือง</span>
                         </div>
-                        <div class="flex items-center text-sm text-slate-600">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-[#EC008C]"></i>
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-pink-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
                             <span>Cambridge Course ชื่อดัง</span>
                         </div>
-                    </div>
-                    
-                    <!-- CTA Button Look -->
-                    <div class="mt-6 text-center">
-                        <span class="text-sm font-medium text-[#EC008C] group-hover:underline underline-offset-4 flex items-center justify-center gap-1">
-                            ดูรายละเอียดราคา <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </span>
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-pink-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
+                            <span>ตารางเรียนปรับได้ง่าย</span>
+                        </div>
                     </div>
                 </div>
             </a>
 
             <!-- Card 2: ILSC -->
             <a href="https://visaandstudyoverseas.github.io/ilsc" target="_blank" rel="noopener noreferrer" 
-               class="group bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-hover transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1">
+               class="corporate-card rounded-xl shadow-card hover:shadow-card-hover group">
                 
-                <div class="h-2 w-full bg-[#F58220]"></div>
-                
-                <div class="p-6 flex items-center justify-center bg-gray-50 border-b border-gray-100 h-32 relative overflow-hidden group-hover:bg-white transition-colors">
-                     <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#F58220]/5 rounded-full blur-xl group-hover:bg-[#F58220]/10 transition-colors"></div>
-                     <img src="https://img2.pic.in.th/ILSC_Logo.jpg" alt="ILSC Logo" class="max-h-16 max-w-[80%] object-contain relative z-10">
+                <div class="h-40 w-full bg-gradient-to-br from-[#F58220] to-[#FFAE00] relative flex items-center justify-center p-6 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-12 -mt-12"></div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-black/5 rounded-full -ml-8 -mb-8"></div>
+
+                    <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg transform transition-transform duration-300 group-hover:scale-110 w-48 h-20 flex items-center justify-center border border-white/50">
+                        <img src="https://img2.pic.in.th/ILSC_Logo.jpg" alt="ILSC Logo" class="max-w-full max-h-full object-contain">
+                    </div>
+
+                    <div class="absolute top-4 right-4 bg-white text-vsoOrange rounded-full p-2 shadow-lg opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </div>
                 </div>
 
-                <div class="p-6 flex-1 flex flex-col">
+                <div class="p-6 flex-1 flex flex-col bg-white">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-xl font-bold text-vso-navy group-hover:text-[#F58220] transition-colors">ILSC Language Schools</h3>
-                        <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-[#F58220] transition-colors"></i>
+                        <h3 class="text-xl font-bold text-vsoNavy group-hover:text-vsoOrange transition-colors">
+                            ILSC Language Schools
+                        </h3>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-vsoOrange transition-colors"></i>
                     </div>
 
                     <div class="mb-4">
-                        <span class="inline-block px-3 py-1 bg-orange-50 text-[#F58220] text-xs font-semibold rounded-md border border-orange-100">
-                            กิจกรรมเยอะ อิสระ
+                        <span class="inline-block px-3 py-1 bg-orange-50 text-orange-600 border border-orange-100 text-xs font-bold uppercase tracking-wider rounded-md">
+                            กิจกรรมเยอะ เลือกเรียนอิสระ
                         </span>
                     </div>
                     
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                        โรงเรียนใหญ่ระดับโลกที่มีวิชาเลือกเยอะที่สุด! เน้นเก่งภาษาผ่านกิจกรรมและการลงมือทำ
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6 font-light">
+                        โรงเรียนใหญ่ระดับโลกที่มีวิชาเลือกเยอะที่สุด! เน้นให้คุณเก่งภาษาผ่านกิจกรรมและการลงมือทำจริง
                     </p>
 
-                    <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
-                        <div class="flex items-center text-sm text-slate-600">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-[#F58220]"></i>
+                    <div class="mt-auto space-y-3 pt-4 border-t border-slate-100">
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-orange-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
                             <span>วิชาเลือกกว่า 130 วิชา</span>
                         </div>
-                        <div class="flex items-center text-sm text-slate-600">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-[#F58220]"></i>
-                            <span>เด็กไทยน้อย ได้ฝึกเต็มที่</span>
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-orange-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
+                            <span>มี English through Yoga/Coffee</span>
                         </div>
-                    </div>
-                    
-                    <div class="mt-6 text-center">
-                        <span class="text-sm font-medium text-[#F58220] group-hover:underline underline-offset-4 flex items-center justify-center gap-1">
-                            ดูรายละเอียดราคา <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </span>
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-orange-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
+                            <span>เด็กไทยน้อย ได้ฝึกภาษาเต็มที่</span>
+                        </div>
                     </div>
                 </div>
             </a>
 
             <!-- Card 3: IMPACT -->
             <a href="https://visaandstudyoverseas.github.io/impact" target="_blank" rel="noopener noreferrer" 
-               class="group bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-hover transition-all duration-300 border border-gray-100 flex flex-col h-full hover:-translate-y-1">
+               class="corporate-card rounded-xl shadow-card hover:shadow-card-hover group">
                 
-                <div class="h-2 w-full bg-[#0f172a]"></div>
-                
-                <div class="p-6 flex items-center justify-center bg-gray-50 border-b border-gray-100 h-32 relative overflow-hidden group-hover:bg-white transition-colors">
-                     <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#0f172a]/5 rounded-full blur-xl group-hover:bg-[#0f172a]/10 transition-colors"></div>
-                     <img src="https://img5.pic.in.th/file/secure-sv1/logo-impact-english-college.png" alt="IMPACT Logo" class="max-h-16 max-w-[80%] object-contain relative z-10">
+                <div class="h-40 w-full bg-gradient-to-br from-[#1e293b] to-[#334155] relative flex items-center justify-center p-6 overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -mr-12 -mt-12"></div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-black/5 rounded-full -ml-8 -mb-8"></div>
+
+                    <div class="bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg transform transition-transform duration-300 group-hover:scale-110 w-48 h-20 flex items-center justify-center border border-white/50">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/logo-impact-english-college.png" alt="IMPACT Logo" class="max-w-full max-h-full object-contain">
+                    </div>
+
+                    <div class="absolute top-4 right-4 bg-white text-vsoOrange rounded-full p-2 shadow-lg opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </div>
                 </div>
 
-                <div class="p-6 flex-1 flex flex-col">
+                <div class="p-6 flex-1 flex flex-col bg-white">
                     <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-xl font-bold text-vso-navy group-hover:text-slate-600 transition-colors">IMPACT English</h3>
-                        <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-slate-600 transition-colors"></i>
+                        <h3 class="text-xl font-bold text-vsoNavy group-hover:text-vsoOrange transition-colors">
+                            IMPACT English
+                        </h3>
+                        <i data-lucide="external-link" class="w-4 h-4 text-slate-300 group-hover:text-vsoOrange transition-colors"></i>
                     </div>
 
                     <div class="mb-4">
-                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-md border border-slate-200">
-                            เข้มข้น English Only
+                        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold uppercase tracking-wider rounded-md">
+                            เข้มข้น กฎ English Only
                         </span>
                     </div>
                     
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                        ใครอยากเก่งไวต้องที่นี่! กฎ "ห้ามพูดภาษาบ้านเกิด" เข้มงวดแต่ได้ผลจริง พร้อมหลักสูตร Barista
+                    <p class="text-slate-500 text-sm leading-relaxed mb-6 font-light">
+                        ใครอยากเก่งไวต้องที่นี่! ด้วยกฎ "ห้ามพูดภาษาบ้านเกิด" ที่เข้มงวดแต่ได้ผลจริง พร้อมหลักสูตร Barista ที่ดังมาก
                     </p>
 
-                    <div class="mt-auto space-y-3 pt-4 border-t border-gray-100">
-                        <div class="flex items-center text-sm text-slate-600">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-slate-700"></i>
+                    <div class="mt-auto space-y-3 pt-4 border-t border-slate-100">
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-slate-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
                             <span>Strict English Only Policy</span>
                         </div>
-                        <div class="flex items-center text-sm text-slate-600">
-                            <i data-lucide="check-circle-2" class="w-4 h-4 mr-2 text-slate-700"></i>
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-slate-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
                             <span>ครูดูแลทั่วถึง ใส่ใจมาก</span>
                         </div>
-                    </div>
-                    
-                    <div class="mt-6 text-center">
-                        <span class="text-sm font-medium text-slate-700 group-hover:underline underline-offset-4 flex items-center justify-center gap-1">
-                            ดูรายละเอียดราคา <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                        </span>
+                        <div class="flex items-start text-sm text-slate-600">
+                            <div class="mr-3 mt-0.5 p-1 rounded-full bg-slate-50 text-slate-600"><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
+                            <span>Barista Course การันตีงาน</span>
+                        </div>
                     </div>
                 </div>
             </a>
 
         </div>
+
     </main>
 
-    <!-- 4. Simple Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
-        <div class="container mx-auto px-4 text-center text-slate-500 text-sm">
-            <p>&copy; 2026 VSO Visa & Study Overseas. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="mt-auto bg-vsoNavy text-white pt-16 pb-8 border-t-4 border-vsoOrange">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <!-- VSO Logo Original Colors on White Background -->
+                    <div class="bg-white px-4 py-2 rounded-lg inline-block mb-6 shadow-sm">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/-5dddeed44d7957161.png" 
+                             alt="VSO Logo" 
+                             class="h-10 w-auto object-contain">
+                    </div>
+                    
+                    <p class="text-gray-300 text-sm font-thai leading-relaxed mb-6">
+                        VSO Visa & Study Overseas เพื่อนคู่คิดเรื่องเรียนต่อต่างประเทศ พร้อมให้บริการแนะแนวศึกษาต่อและยื่นวีซ่าครบวงจร
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/visastudyoverseas" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-vsoOrange transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="https://www.instagram.com/vso_th" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-vsoOrange transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-vsoOrange transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white border-l-4 border-vsoOrange pl-3">ติดต่อเรา</h4>
+                    <ul class="space-y-4 text-sm text-gray-300 font-thai">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-vsoOrange shrink-0 mt-0.5"></i>
+                            <span>Level 10, 278 Collins Street, Melbourne Australia 3000</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-vsoOrange shrink-0"></i>
+                            <a href="tel:+61414884631" class="hover:text-white transition-colors">+61 414 884 631</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-5 h-5 text-vsoOrange shrink-0"></i>
+                            <a href="mailto:info@visastudyoverseas.com" class="hover:text-white transition-colors">info@visastudyoverseas.com</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 text-white border-l-4 border-vsoOrange pl-3">ลิงก์ด่วน</h4>
+                    <ul class="space-y-3 text-sm text-gray-300 font-thai">
+                        <li><a href="https://www.visastudyoverseas.com/th" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> หน้าแรก</a></li>
+                        <li><a href="https://www.visastudyoverseas.com/th/services" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บริการของเรา</a></li>
+                        <li><a href="https://www.visastudyoverseas.com/th/blog" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บทความน่ารู้</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2026 VSO Visa & Study Overseas. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
+
+        // Reveal animations on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.corporate-card').forEach((el) => {
+            el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
