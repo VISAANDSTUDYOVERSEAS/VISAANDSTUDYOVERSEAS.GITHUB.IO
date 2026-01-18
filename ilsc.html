@@ -2,7 +2,7 @@
 <html lang="th" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ILSC Australia - VSO Visa & Study Overseas</title>
     
     <!-- Google Fonts -->
@@ -50,6 +50,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden; /* ป้องกันหน้าเว็บเลื่อนซ้ายขวา */
         }
 
         /* Corporate Card Style */
@@ -72,13 +73,29 @@
             color: #002347;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.75rem; /* เล็กลงสำหรับมือถือ */
             letter-spacing: 0.05em;
         }
+        
+        @media (min-width: 768px) {
+            .price-table th {
+                font-size: 0.85rem;
+            }
+        }
+
         .price-table tr:hover td {
             background-color: #F4F7FA;
         }
 
+        /* Custom Scrollbar for Table */
+        .overflow-x-auto::-webkit-scrollbar { 
+            height: 6px; 
+            display: block; /* บังคับแสดง scrollbar แนวนอน */
+        }
+        .overflow-x-auto::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .overflow-x-auto::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -121,7 +138,7 @@
     </header>
 
     <!-- Hero Section -->
-    <div class="relative bg-vsoNavy text-white overflow-hidden min-h-[550px] md:min-h-[600px] flex items-center py-12 md:py-16">
+    <div class="relative bg-vsoNavy text-white overflow-hidden min-h-[500px] md:min-h-[600px] flex items-center py-12 md:py-16">
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1529007196863-d07650a3f0ea?q=80&w=2070&auto=format&fit=crop" 
@@ -152,7 +169,7 @@
             </div>
             
             <!-- Floating Logo Card -->
-            <div class="hidden md:flex justify-end reveal-up" style="transition-delay: 200ms;">
+            <div class="hidden md:flex justify-end reveal-up delay-200">
                 <div class="bg-white p-6 md:p-8 rounded-2xl shadow-2xl max-w-xs text-center transform rotate-3 hover:rotate-0 transition-transform duration-500 border-4 border-white/10">
                     <img src="https://img2.pic.in.th/ILSC_Logo.jpg" alt="ILSC Logo" class="h-20 md:h-24 mx-auto mb-4 md:mb-6 object-contain">
                     <p class="text-vsoNavy font-bold text-lg md:text-xl mb-1">Empowering Education</p>
@@ -218,7 +235,7 @@
 
             <!-- ZONE 1: Adelaide -->
             <div class="reveal-up">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 md:mb-6">
                     <div class="flex items-center gap-4">
                         <div class="bg-ilscOrange text-white p-3 rounded-xl shadow-md shrink-0">
                             <i data-lucide="leaf" class="w-6 h-6 md:w-7 md:h-7"></i>
@@ -231,65 +248,67 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-600 flex items-center gap-2">
+                    <div class="bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-600 flex items-center gap-2 w-full md:w-auto justify-center md:justify-start">
                         <i data-lucide="clock" class="w-4 h-4 text-ilscOrange"></i> Mon - Fri (8:30am - 1:00pm)
                     </div>
                 </div>
                 
                 <div class="corporate-card shadow-md overflow-hidden">
                     <div class="h-2 w-full bg-ilscOrange"></div>
-                    <div class="overflow-x-auto">
+                    
+                    <!-- Scrollable Table Container -->
+                    <div class="w-full overflow-x-auto pb-2">
                         <table class="w-full text-left border-collapse price-table min-w-[600px]">
                             <thead>
                                 <tr>
-                                    <th class="p-4 md:p-5 font-bold whitespace-nowrap">ระยะเวลา</th>
-                                    <th class="p-4 md:p-5 text-center whitespace-nowrap">ค่าเรียน</th>
-                                    <th class="p-4 md:p-5 text-center whitespace-nowrap">ค่าอุปกรณ์</th>
-                                    <th class="p-4 md:p-5 text-right whitespace-nowrap">รวม (AUD)</th>
-                                    <th class="p-4 md:p-5 text-right text-ilscOrange whitespace-nowrap">รวม (บาท)</th>
+                                    <th class="p-3 md:p-5 whitespace-nowrap">ระยะเวลา</th>
+                                    <th class="p-3 md:p-5 text-center whitespace-nowrap">ค่าเรียน</th>
+                                    <th class="p-3 md:p-5 text-center whitespace-nowrap">ค่าอุปกรณ์</th>
+                                    <th class="p-3 md:p-5 text-right whitespace-nowrap">รวม (AUD)</th>
+                                    <th class="p-3 md:p-5 text-right text-ilscOrange whitespace-nowrap">รวม (บาท)</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100 text-sm md:text-base text-slate-700">
                                 <tr class="hover:bg-blue-50/50 transition duration-200 group">
-                                    <td class="p-4 md:p-5 font-semibold">12 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">3 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$3,360</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$180</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$3,790</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-ilscOrange">฿79,590</td>
+                                    <td class="p-3 md:p-5 font-semibold">12 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">3 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$3,360</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$180</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$3,790</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-ilscOrange">฿79,590</td>
                                 </tr>
                                 <tr class="hover:bg-blue-50/50 transition duration-200 group">
-                                    <td class="p-4 md:p-5 font-semibold">24 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">6 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$6,720</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$360</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$7,330</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-ilscOrange">฿153,930</td>
+                                    <td class="p-3 md:p-5 font-semibold">24 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">6 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$6,720</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$360</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$7,330</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-ilscOrange">฿153,930</td>
                                 </tr>
                                 <tr class="hover:bg-blue-50/50 transition duration-200 group">
-                                    <td class="p-4 md:p-5 font-semibold">36 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">9 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$10,080</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$390</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$10,720</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-ilscOrange">฿225,120</td>
+                                    <td class="p-3 md:p-5 font-semibold">36 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">9 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$10,080</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$390</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$10,720</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-ilscOrange">฿225,120</td>
                                 </tr>
                                 <tr class="hover:bg-blue-50/50 transition duration-200 group">
-                                    <td class="p-4 md:p-5 font-semibold">48 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">1 ปี</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$13,440</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$450</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$14,140</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-ilscOrange">฿296,940</td>
+                                    <td class="p-3 md:p-5 font-semibold">48 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">1 ปี</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$13,440</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$450</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$14,140</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-ilscOrange">฿296,940</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="px-6 py-4 text-xs text-right text-gray-500 bg-gray-50 border-t border-slate-100 flex justify-end items-center gap-2">
-                        <i data-lucide="info" class="w-3 h-3"></i> ค่าสมัคร $250 รวมในยอดแล้ว
+                        <i data-lucide="info" class="w-3 h-3"></i> <span class="md:hidden">เลื่อนเพื่อดูข้อมูล</span> ค่าสมัคร $250 รวมในยอดแล้ว
                     </div>
                 </div>
             </div>
 
             <!-- ZONE 2: Perth -->
             <div class="reveal-up">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 md:mb-6">
                     <div class="flex items-center gap-4">
                         <div class="bg-vsoOrange text-white p-3 rounded-xl shadow-md shrink-0">
                             <i data-lucide="sun" class="w-6 h-6 md:w-7 md:h-7"></i>
@@ -299,65 +318,67 @@
                             <p class="text-slate-500 text-sm">เรียน 4 วัน/สัปดาห์ (จันทร์ - พฤหัสบดี)</p>
                         </div>
                     </div>
-                    <div class="bg-white/80 px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-600 flex items-center gap-2">
+                    <div class="bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-600 flex items-center gap-2 w-full md:w-auto justify-center md:justify-start">
                         <i data-lucide="clock" class="w-4 h-4 text-vsoOrange"></i> Mon - Thu (9:00am - 3:00pm)
                     </div>
                 </div>
                 
                 <div class="corporate-card shadow-md overflow-hidden">
                     <div class="h-2 w-full bg-vsoOrange"></div>
-                    <div class="overflow-x-auto">
+                    
+                    <!-- Scrollable Table Container -->
+                    <div class="w-full overflow-x-auto pb-2">
                         <table class="w-full text-left border-collapse price-table min-w-[600px]">
                             <thead>
                                 <tr>
-                                    <th class="p-4 md:p-5 font-bold whitespace-nowrap">ระยะเวลา</th>
-                                    <th class="p-4 md:p-5 text-center whitespace-nowrap">ค่าเรียน</th>
-                                    <th class="p-4 md:p-5 text-center whitespace-nowrap">ค่าอุปกรณ์</th>
-                                    <th class="p-4 md:p-5 text-right whitespace-nowrap">รวม (AUD)</th>
-                                    <th class="p-4 md:p-5 text-right text-vsoOrange whitespace-nowrap">รวม (บาท)</th>
+                                    <th class="p-3 md:p-5 whitespace-nowrap">ระยะเวลา</th>
+                                    <th class="p-3 md:p-5 text-center whitespace-nowrap">ค่าเรียน</th>
+                                    <th class="p-3 md:p-5 text-center whitespace-nowrap">ค่าอุปกรณ์</th>
+                                    <th class="p-3 md:p-5 text-right whitespace-nowrap">รวม (AUD)</th>
+                                    <th class="p-3 md:p-5 text-right text-vsoOrange whitespace-nowrap">รวม (บาท)</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100 text-sm md:text-base text-slate-700">
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">12 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">3 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$3,720</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$180</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$4,150</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoOrange">฿87,150</td>
+                                    <td class="p-3 md:p-5 font-semibold">12 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">3 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$3,720</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$180</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$4,150</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoOrange">฿87,150</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">24 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">6 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$7,440</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$360</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$8,050</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoOrange">฿169,050</td>
+                                    <td class="p-3 md:p-5 font-semibold">24 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">6 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$7,440</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$360</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$8,050</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoOrange">฿169,050</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">36 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">9 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$11,160</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$390</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$11,800</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoOrange">฿247,800</td>
+                                    <td class="p-3 md:p-5 font-semibold">36 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">9 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$11,160</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$390</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$11,800</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoOrange">฿247,800</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">48 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">1 ปี</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$14,880</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$450</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$15,580</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoOrange">฿327,180</td>
+                                    <td class="p-3 md:p-5 font-semibold">48 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">1 ปี</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$14,880</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$450</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$15,580</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoOrange">฿327,180</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="px-6 py-4 text-xs text-right text-gray-500 bg-gray-50 border-t border-slate-100 flex justify-end items-center gap-2">
-                        <i data-lucide="info" class="w-3 h-3"></i> ค่าสมัคร $250 รวมในยอดแล้ว
+                         <i data-lucide="info" class="w-3 h-3"></i> <span class="md:hidden">เลื่อนเพื่อดูข้อมูล</span> ค่าสมัคร $250 รวมในยอดแล้ว
                     </div>
                 </div>
             </div>
 
             <!-- ZONE 3: Brisbane / Sydney / Melbourne -->
             <div class="reveal-up">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 md:mb-6">
                     <div class="flex items-center gap-4">
                         <div class="bg-vsoBlue text-white p-3 rounded-xl shadow-md shrink-0">
                             <i data-lucide="building-2" class="w-6 h-6 md:w-7 md:h-7"></i>
@@ -367,58 +388,60 @@
                             <p class="text-slate-500 text-sm">เมืองใหญ่ยอดนิยม</p>
                         </div>
                     </div>
-                    <div class="bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-600 flex items-center gap-2">
+                    <div class="bg-white px-4 py-2 rounded-lg border border-slate-200 text-sm text-slate-600 flex items-center gap-2 w-full md:w-auto justify-center md:justify-start">
                         <i data-lucide="clock" class="w-4 h-4 text-vsoBlue"></i> Mon - Fri (8:30am - 1:00pm)
                     </div>
                 </div>
                 
                 <div class="corporate-card shadow-md overflow-hidden">
                     <div class="h-2 w-full bg-vsoBlue"></div>
-                    <div class="overflow-x-auto">
+                    
+                    <!-- Scrollable Table Container -->
+                    <div class="w-full overflow-x-auto pb-2">
                         <table class="w-full text-left border-collapse price-table min-w-[600px]">
                             <thead>
                                 <tr>
-                                    <th class="p-4 md:p-5 font-bold whitespace-nowrap">ระยะเวลา</th>
-                                    <th class="p-4 md:p-5 text-center whitespace-nowrap">ค่าเรียน</th>
-                                    <th class="p-4 md:p-5 text-center whitespace-nowrap">ค่าอุปกรณ์</th>
-                                    <th class="p-4 md:p-5 text-right whitespace-nowrap">รวม (AUD)</th>
-                                    <th class="p-4 md:p-5 text-right text-vsoBlue whitespace-nowrap">รวม (บาท)</th>
+                                    <th class="p-3 md:p-5 whitespace-nowrap">ระยะเวลา</th>
+                                    <th class="p-3 md:p-5 text-center whitespace-nowrap">ค่าเรียน</th>
+                                    <th class="p-3 md:p-5 text-center whitespace-nowrap">ค่าอุปกรณ์</th>
+                                    <th class="p-3 md:p-5 text-right whitespace-nowrap">รวม (AUD)</th>
+                                    <th class="p-3 md:p-5 text-right text-vsoBlue whitespace-nowrap">รวม (บาท)</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100 text-sm md:text-base text-slate-700">
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">12 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">3 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$4,020</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$180</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$4,450</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoBlue">฿93,450</td>
+                                    <td class="p-3 md:p-5 font-semibold">12 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">3 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$4,020</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$180</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$4,450</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoBlue">฿93,450</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">24 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">6 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$8,040</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$360</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$8,650</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoBlue">฿181,650</td>
+                                    <td class="p-3 md:p-5 font-semibold">24 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">6 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$8,040</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$360</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$8,650</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoBlue">฿181,650</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">36 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">9 เดือน</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$12,060</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$390</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$12,700</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoBlue">฿266,700</td>
+                                    <td class="p-3 md:p-5 font-semibold">36 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">9 เดือน</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$12,060</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$390</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$12,700</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoBlue">฿266,700</td>
                                 </tr>
                                 <tr>
-                                    <td class="p-4 md:p-5 font-semibold">48 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-2 bg-slate-100 px-2 py-0.5 rounded-full inline-block">1 ปี</span></td>
-                                    <td class="p-4 md:p-5 text-center font-bold text-slate-600">$16,080</td>
-                                    <td class="p-4 md:p-5 text-center text-slate-600">$450</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-slate-800">$16,780</td>
-                                    <td class="p-4 md:p-5 text-right font-bold text-lg text-vsoBlue">฿352,380</td>
+                                    <td class="p-3 md:p-5 font-semibold">48 สัปดาห์ <span class="text-slate-400 font-normal text-xs ml-1 bg-slate-100 px-1.5 py-0.5 rounded-full inline-block">1 ปี</span></td>
+                                    <td class="p-3 md:p-5 text-center font-bold text-slate-600">$16,080</td>
+                                    <td class="p-3 md:p-5 text-center text-slate-600">$450</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-slate-800">$16,780</td>
+                                    <td class="p-3 md:p-5 text-right font-bold text-lg text-vsoBlue">฿352,380</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="px-6 py-4 text-xs text-right text-gray-500 bg-gray-50 border-t border-slate-100 flex justify-end items-center gap-2">
-                        <i data-lucide="info" class="w-3 h-3"></i> ค่าสมัคร $250 รวมในยอดแล้ว
+                        <i data-lucide="info" class="w-3 h-3"></i> <span class="md:hidden">เลื่อนเพื่อดูข้อมูล</span> ค่าสมัคร $250 รวมในยอดแล้ว
                     </div>
                 </div>
             </div>
