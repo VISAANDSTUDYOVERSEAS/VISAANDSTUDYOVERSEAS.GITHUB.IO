@@ -44,12 +44,11 @@
 
     <style>
         body {
-            background-color: #F4F7FA; /* Corporate Light Gray Background */
+            background-color: #F4F7FA;
             color: #334155;
             min-height: 100vh;
         }
 
-        /* Corporate Card Style (Solid White) */
         .corporate-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -60,12 +59,10 @@
 
         .corporate-card:hover {
             transform: translateY(-4px);
-            border-color: #F26522; /* Orange Border on Hover */
+            border-color: #F26522;
         }
 
-        .image-card-base {
-            background-color: #002347;
-        }
+        .image-card-base { background-color: #002347; }
 
         .btn-primary {
             background-color: #F26522;
@@ -90,13 +87,47 @@
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
-            padding-left: 100%; /* Start from right edge of container */
+            padding-left: 100%;
             animation: marquee 25s linear infinite;
         }
 
-        .animate-marquee:hover {
-            animation-play-state: paused;
+        .animate-marquee:hover { animation-play-state: paused; }
+        
+        /* Lightbox Fade In */
+        .lightbox-open {
+            display: flex !important;
+            opacity: 1 !important;
         }
+
+        /* --- NEW ANIMATIONS FOR SLIDER --- */
+        /* Active slide state */
+        .slide.active {
+            opacity: 1;
+            z-index: 20;
+            pointer-events: auto;
+        }
+        
+        /* Zoom effect for image in active slide */
+        .slide.active .slide-img {
+            transform: scale(1.15); /* Zoom in */
+        }
+
+        /* Text Reveal Animations */
+        .slide.active .animate-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Delays for staggered effect */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.3s; }
+        .delay-300 { transition-delay: 0.5s; }
         
         html { scroll-behavior: smooth; }
     </style>
@@ -106,7 +137,6 @@
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 py-3 md:py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            
             <!-- Logo Zone -->
             <a href="https://www.visastudyoverseas.com/th" class="flex items-center gap-3 group shrink-0">
                 <img src="https://img5.pic.in.th/file/secure-sv1/-5dddeed44d7957161.png" 
@@ -114,7 +144,7 @@
                      class="h-10 md:h-12 w-auto object-contain">
             </a>
             
-            <!-- Auto-scrolling Text Area (Marquee) -->
+            <!-- Auto-scrolling Text Area -->
             <div class="hidden md:flex flex-1 mx-4 lg:mx-8 overflow-hidden relative items-center h-10 bg-slate-50 rounded-full border border-slate-100 px-4">
                 <div class="animate-marquee text-sm text-vsoBlue font-thai font-medium flex items-center gap-8">
                     <span class="flex items-center gap-2"><i data-lucide="megaphone" class="w-4 h-4 text-vsoOrange"></i> ยินดีต้อนรับสู่ VSO Visa & Study Overseas เพื่อนคู่คิดเรื่องเรียนต่อต่างประเทศ</span>
@@ -122,7 +152,6 @@
                     <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> บริการยื่นวีซ่า ปรึกษาฟรีไม่มีค่าใช้จ่ายเมื่อสมัครเรียนกับเรา</span>
                     <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-blue-500"></i> ครอบคลุม ออสเตรเลีย นิวซีแลนด์ แคนาดา มอลตา ดูไบ</span>
                 </div>
-                <!-- Gradient Fades for smoother look -->
                 <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-50 to-transparent z-10"></div>
                 <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 to-transparent z-10"></div>
             </div>
@@ -142,6 +171,130 @@
 
     <main class="max-w-7xl mx-auto px-4 pt-8 md:pt-12">
         
+        <!-- === NEW: ANIMATED HERO SLIDER === -->
+        <div class="relative w-full rounded-2xl overflow-hidden mb-16 shadow-2xl aspect-[4/5] md:aspect-[21/9] group isolate bg-vsoNavy">
+            
+            <!-- Slides Container (No longer flex row, but stacked) -->
+            <div id="slider-container" class="relative w-full h-full">
+                
+                <!-- Slide 1: ทุนเรียนฟรี 100% UNSW -->
+                <div class="slide active absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-20" data-index="0">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png')">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Scholarship Promo">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/40 to-transparent md:bg-gradient-to-r md:from-vsoNavy md:via-vsoNavy/70 md:to-transparent opacity-90 md:opacity-100"></div>
+                    </div>
+                    
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-block px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded w-fit mb-4 shadow-lg">ทุนการศึกษา UNSW</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+                            ทุนเรียนฟรี 100%<br>จากมหาวิทยาลัย UNSW
+                        </h2>
+                        <p class="animate-item delay-300 text-gray-200 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-md hidden md:block">
+                            โอกาสครั้งสำคัญ! ทุนการศึกษาเต็มจำนวนจากมหาวิทยาลัยชั้นนำระดับโลก UNSW ออสเตรเลีย สมัครด่วนจำนวนจำกัด
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slide 2: ต่อวีซ่ารับ Gift Card -->
+                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="1">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/19420d55d0beee681.png')">
+                        <img src="https://img2.pic.in.th/19420d55d0beee681.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Visa Service">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoBlue via-vsoBlue/40 to-transparent md:bg-gradient-to-r md:from-vsoBlue md:via-vsoBlue/70 md:to-transparent opacity-90 md:opacity-100"></div>
+                    </div>
+                    
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-block px-3 py-1 bg-yellow-500 text-vsoNavy text-xs font-bold uppercase tracking-wider rounded w-fit mb-4 shadow-lg">โปรโมชั่นต่อวีซ่า</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-2xl md:text-4xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+                            ต่อวีซ่ากับ VSO วันนี้<br>รับฟรี Gift Card สูงสุด $600
+                        </h2>
+                        <div class="animate-item delay-300 text-gray-100 text-sm md:text-base font-thai mb-6 max-w-lg drop-shadow-md bg-black/20 p-4 rounded-lg backdrop-blur-sm border-l-4 border-yellow-400">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>รับ Coles/Woolworths Gift Card <strong>$300</strong> (ต่อ 1 ปี)</li>
+                                <li>รับ Coles/Woolworths Gift Card <strong>$600</strong> (ต่อ 2 ปี)</li>
+                                <li class="text-yellow-300 font-semibold mt-2">รับสิทธิ์ง่ายๆ แค่ต่อวีซ่าภายใน 15 มีนาคม 2026 นี้เท่านั้น!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3: จับคู่ต่อวีซ่า -->
+                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="2">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png')">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Workshop">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/40 to-transparent md:bg-gradient-to-r md:from-vsoNavy md:via-vsoNavy/60 md:to-transparent opacity-90 md:opacity-100"></div>
+                    </div>
+                    
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-block px-3 py-1 bg-green-500 text-white text-xs font-bold uppercase tracking-wider rounded w-fit mb-4 shadow-lg">โปรโมชั่นคู่หู</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+                            จับคู่กันมาต่อวีซ่า<br>รับ Cash Back คนละ $500
+                        </h2>
+                        <p class="animate-item delay-300 text-gray-200 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-md">
+                            สิทธิพิเศษ! เพียงจับคู่เพื่อนมาต่อวีซ่าพร้อมกัน ภายในวันที่ 15 มีนาคมนี้ รับเงินคืนเข้ากระเป๋าทันทีคนละ $500
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slide 4: ส่วนลดค่าเรียน -->
+                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="3">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/34cc9071751ad9928.png')">
+                        <img src="https://img2.pic.in.th/34cc9071751ad9928.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Consultation">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/50 to-transparent md:bg-gradient-to-r md:from-vsoNavy md:via-vsoNavy/80 md:to-transparent opacity-95 md:opacity-100"></div>
+                    </div>
+                    
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-block px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded w-fit mb-3 shadow-lg">ส่วนลดค่าเรียน 4 ประเทศยอดฮิต</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-2xl md:text-3xl font-bold text-white mb-3 leading-tight drop-shadow-lg">
+                            ออสเตรเลีย นิวซีแลนด์ ดูไบ มอลตา
+                        </h2>
+                        <div class="animate-item delay-300 bg-white/10 p-4 rounded-xl backdrop-blur-md border border-white/20 mb-6 max-w-md">
+                            <h4 class="text-vsoOrange font-bold mb-2 text-sm md:text-base border-b border-white/20 pb-2">🎉 ส่วนลดโดนใจ:</h4>
+                            <ul class="text-white text-xs md:text-sm space-y-2 font-thai">
+                                <li class="flex justify-between"><span>📚 ลงเรียน 1 ปี</span> <span class="font-bold text-green-300">ลดทันที 15,000฿</span></li>
+                                <li class="flex justify-between"><span>📚 ลงเรียน 6-9 เดือน</span> <span class="font-bold text-green-300">ลดทันที 8,000฿</span></li>
+                                <li class="flex justify-between"><span>📚 ลงเรียน 3-5 เดือน</span> <span class="font-bold text-green-300">ลดทันที 3,500฿</span></li>
+                                <li class="flex justify-between"><span>📚 ลงเรียน 1-2 เดือน</span> <span class="font-bold text-green-300">ลดทันที 1,500฿</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-30">
+                <div id="progress-bar" class="h-full bg-vsoOrange transition-all duration-100 ease-linear w-0"></div>
+            </div>
+
+            <!-- Slider Controls (Dots) -->
+            <div class="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30 pointer-events-auto" onclick="event.stopPropagation()">
+                <button onclick="goToSlide(0)" id="dot-0" class="h-2 rounded-full bg-white transition-all duration-300 w-8 opacity-100"></button>
+                <button onclick="goToSlide(1)" id="dot-1" class="h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300 w-2 opacity-100"></button>
+                <button onclick="goToSlide(2)" id="dot-2" class="h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300 w-2 opacity-100"></button>
+                <button onclick="goToSlide(3)" id="dot-3" class="h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300 w-2 opacity-100"></button>
+            </div>
+
+            <!-- Arrows -->
+            <button onclick="event.stopPropagation(); prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer pointer-events-auto z-30">
+                <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            </button>
+            <button onclick="event.stopPropagation(); nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer pointer-events-auto z-30">
+                <i data-lucide="chevron-right" class="w-6 h-6"></i>
+            </button>
+        </div>
+
         <!-- Hero Text -->
         <div class="text-center mb-10 md:mb-16">
             <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 tracking-tight text-vsoNavy leading-tight">
@@ -360,6 +513,17 @@
         </div>
     </footer>
 
+    <!-- LIGHTBOX (MODAL) for viewing images -->
+    <div id="lightbox" class="fixed inset-0 z-[60] bg-black/90 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+        <!-- Close Button -->
+        <button class="absolute top-4 right-4 text-white hover:text-vsoOrange transition-colors z-50 p-2" onclick="closeLightbox()">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        
+        <!-- Image Container -->
+        <img id="lightbox-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl transform transition-transform duration-300 scale-95 object-contain" onclick="event.stopPropagation()">
+    </div>
+
     <script>
         lucide.createIcons();
 
@@ -377,6 +541,137 @@
             el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
             observer.observe(el);
         });
+
+        // --- Improved Slider Logic (Fade & Scale) ---
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const slides = document.querySelectorAll('.slide');
+        const dots = [
+            document.getElementById('dot-0'), 
+            document.getElementById('dot-1'),
+            document.getElementById('dot-2'),
+            document.getElementById('dot-3')
+        ];
+        const progressBar = document.getElementById('progress-bar');
+        let slideInterval;
+        let progressInterval;
+        const slideDuration = 5000; // 5 seconds
+
+        function updateSlider() {
+            // Update Slides
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                    slide.classList.remove('opacity-0', 'z-10', 'pointer-events-none');
+                    slide.classList.add('opacity-100', 'z-20');
+                } else {
+                    slide.classList.remove('active');
+                    slide.classList.remove('opacity-100', 'z-20');
+                    slide.classList.add('opacity-0', 'z-10', 'pointer-events-none');
+                }
+            });
+            
+            // Update Dots
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('w-2', 'bg-white/40');
+                    dot.classList.add('w-8', 'bg-white');
+                } else {
+                    dot.classList.remove('w-8', 'bg-white');
+                    dot.classList.add('w-2', 'bg-white/40');
+                }
+            });
+
+            // Reset Progress Bar
+            resetProgressBar();
+        }
+
+        function resetProgressBar() {
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            
+            // Trigger reflow
+            void progressBar.offsetWidth;
+            
+            progressBar.style.transition = `width ${slideDuration}ms linear`;
+            progressBar.style.width = '100%';
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetTimer(); // Manual navigation resets timer
+        }
+
+        function startTimer() {
+            resetProgressBar();
+            slideInterval = setInterval(nextSlide, slideDuration);
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            startTimer();
+        }
+
+        // Init
+        startTimer();
+
+        // Pause on hover
+        const sliderContainer = document.querySelector('.group.isolate');
+        if(sliderContainer) {
+            sliderContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+                progressBar.style.transition = 'none'; // Pause bar visual
+                const currentWidth = progressBar.offsetWidth;
+                progressBar.style.width = `${currentWidth}px`;
+            });
+            sliderContainer.addEventListener('mouseleave', () => {
+                startTimer();
+            });
+        }
+
+        // --- Lightbox Functions ---
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = imgSrc;
+            lightbox.classList.remove('hidden');
+            
+            setTimeout(() => {
+                lightbox.classList.add('lightbox-open');
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            }, 10);
+            
+            clearInterval(slideInterval); // Stop slider when viewing image
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            lightbox.classList.remove('lightbox-open');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+            
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+            }, 300);
+            
+            startTimer(); // Resume slider
+        }
     </script>
 </body>
 </html>
