@@ -181,4 +181,273 @@
                            <i class="fa-solid fa-earth-oceania mb-1 block"></i> Australia
                        </div>
                    </label>
+                   <label class="cursor-pointer group">
+                       <input type="radio" name="country" value="New Zealand" class="peer sr-only">
+                       <div class="p-3 border rounded-lg text-center bg-white hover:bg-brand-light hover:border-brand-secondary peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition text-sm group-hover:shadow-md">
+                           <i class="fa-solid fa-leaf mb-1 block"></i> New Zealand
+                       </div>
+                   </label>
+                   <label class="cursor-pointer group">
+                       <input type="radio" name="country" value="Canada" class="peer sr-only">
+                       <div class="p-3 border rounded-lg text-center bg-white hover:bg-brand-light hover:border-brand-secondary peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition text-sm group-hover:shadow-md">
+                           <i class="fa-brands fa-canadian-maple-leaf mb-1 block"></i> Canada
+                       </div>
+                   </label>
+                   <label class="cursor-pointer group">
+                       <input type="radio" name="country" value="Malta" class="peer sr-only">
+                       <div class="p-3 border rounded-lg text-center bg-white hover:bg-brand-light hover:border-brand-secondary peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition text-sm group-hover:shadow-md">
+                           <i class="fa-solid fa-sun mb-1 block"></i> Malta
+                       </div>
+                   </label>
+                   <label class="cursor-pointer group">
+                       <input type="radio" name="country" value="Dubai" class="peer sr-only">
+                       <div class="p-3 border rounded-lg text-center bg-white hover:bg-brand-light hover:border-brand-secondary peer-checked:bg-brand-primary peer-checked:text-white peer-checked:border-brand-primary transition text-sm group-hover:shadow-md">
+                           <i class="fa-solid fa-building mb-1 block"></i> Dubai
+                       </div>
+                   </label>
+                </div>
+              </div>
 
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">2. วัตถุประสงค์? <span class="text-red-500">*</span></label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-brand-light transition"><input type="radio" name="purpose" value="วีซ่านักเรียน" required onchange="toggleOtherPurpose(false)" class="mr-3 text-brand-primary focus:ring-brand-primary"><span class="text-sm">วีซ่านักเรียน</span></label>
+                  <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-brand-light transition"><input type="radio" name="purpose" value="วีซ่าครอบครัว" onchange="toggleOtherPurpose(false)" class="mr-3 text-brand-primary focus:ring-brand-primary"><span class="text-sm">วีซ่าครอบครัว</span></label>
+                  <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-brand-light transition"><input type="radio" name="purpose" value="วีซ่าท่องเที่ยว" onchange="toggleOtherPurpose(false)" class="mr-3 text-brand-primary focus:ring-brand-primary"><span class="text-sm">วีซ่าท่องเที่ยว</span></label>
+                  <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-brand-light transition"><input type="radio" name="purpose" value="ต่อวีซ่า" onchange="toggleOtherPurpose(false)" class="mr-3 text-brand-primary focus:ring-brand-primary"><span class="text-sm">ต่อวีซ่า</span></label>
+                  <div class="sm:col-span-2">
+                     <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-brand-light transition"><input type="radio" name="purpose" value="other" onchange="toggleOtherPurpose(true)" class="mr-3 text-brand-primary focus:ring-brand-primary"><span class="text-sm">อื่นๆ</span></label>
+                     <input type="text" id="otherPurposeInput" class="hidden w-full mt-2 px-3 py-2 border border-gray-300 rounded text-sm focus:border-brand-secondary outline-none" placeholder="โปรดระบุวัตถุประสงค์...">
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1.5">3. ประวัติการยื่นวีซ่า <span class="text-red-500">*</span></label>
+                  <select name="history" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700 cursor-pointer">
+                      <option value="" disabled selected>-- เลือก --</option>
+                      <option value="ไม่เคยยื่นมาก่อน">ไม่เคยยื่นมาก่อน</option>
+                      <option value="เคยได้วีซ่าประเทศอื่นมาก่อน">เคยได้วีซ่าประเทศอื่นมาก่อน</option>
+                      <option value="เคยถูกปฏิเสธวีซ่ามาก่อน">เคยถูกปฏิเสธวีซ่ามาก่อน</option>
+                  </select>
+                </div>
+                 <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1.5">4. จำนวนเงินในบัญชีที่แสดงได้</label>
+                  <input type="text" name="showMoney" required class="custom-input w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg outline-none text-gray-700" placeholder="เช่น 500,000 บาท">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">5. อาชีพปัจจุบัน? <span class="text-red-500">*</span></label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <label class="flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer transition"><input type="radio" name="occupation" value="พนักงานบริษัท / ข้าราชการ" required onchange="toggleOtherOccupation(false)" class="mr-2 text-brand-primary"><span class="text-sm">พนักงานบริษัท / ข้าราชการ</span></label>
+                  <label class="flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer transition"><input type="radio" name="occupation" value="เจ้าของกิจการ" onchange="toggleOtherOccupation(false)" class="mr-2 text-brand-primary"><span class="text-sm">เจ้าของกิจการ</span></label>
+                  <label class="flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer transition"><input type="radio" name="occupation" value="ฟรีแลนซ์ / ค้าขายออนไลน์" onchange="toggleOtherOccupation(false)" class="mr-2 text-brand-primary"><span class="text-sm">ฟรีแลนซ์ / ค้าขายออนไลน์</span></label>
+                  <label class="flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer transition"><input type="radio" name="occupation" value="นักเรียน / นักศึกษา" onchange="toggleOtherOccupation(false)" class="mr-2 text-brand-primary"><span class="text-sm">นักเรียน / นักศึกษา</span></label>
+                  <div class="sm:col-span-2">
+                    <label class="flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer transition"><input type="radio" name="occupation" value="other" onchange="toggleOtherOccupation(true)" class="mr-2 text-brand-primary"><span class="text-sm">อื่นๆ</span></label>
+                    <input type="text" id="otherOccupationInput" class="hidden w-full mt-2 px-3 py-2 border border-gray-300 rounded text-sm focus:border-brand-secondary outline-none" placeholder="ระบุอาชีพ...">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                <label class="block text-sm font-medium text-brand-primary mb-2"><i class="fa-brands fa-line mr-1"></i> อัปโหลด QR Code Line (ถ้ามี)</label>
+                <input type="file" id="fileInput" name="file" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-brand-primary file:shadow-sm hover:file:bg-blue-50 cursor-pointer"/>
+                <p class="text-xs text-gray-500 mt-2">* เพื่อให้เจ้าหน้าที่ติดต่อกลับได้สะดวกรวดเร็ว</p>
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-secondary hover:to-brand-primary text-white text-lg font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 active:translate-y-0">
+                <i class="fa-regular fa-paper-plane mr-2"></i> ยืนยันข้อมูล
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+  </div>
+
+  <!-- ================= THANK YOU PAGE (HIDDEN INITIALLY) ================= -->
+  <div id="thankYouContainer" class="hidden min-h-screen flex flex-col items-center justify-center bg-brand-light p-4 animate-fade-in">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 max-w-lg w-full text-center border-t-8 border-brand-primary">
+        
+        <div class="mb-8 relative">
+            <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto animate-bounce-slow">
+                <i class="fa-solid fa-check text-5xl text-brand-success"></i>
+            </div>
+            <!-- Decorative particles -->
+            <div class="absolute top-0 right-1/3 text-yellow-400 text-xl animate-pulse"><i class="fa-solid fa-star"></i></div>
+            <div class="absolute bottom-0 left-1/3 text-brand-accent text-lg animate-pulse" style="animation-delay: 0.5s"><i class="fa-solid fa-circle"></i></div>
+        </div>
+
+        <h2 class="text-3xl font-bold text-brand-primary mb-3">บันทึกข้อมูลสำเร็จ!</h2>
+        <p class="text-gray-500 text-lg mb-8">ขอบคุณที่ไว้วางใจ VSO<br>เจ้าหน้าที่จะตรวจสอบข้อมูลและติดต่อกลับ<br>ทางช่องทางที่ท่านให้ไว้โดยเร็วที่สุดครับ</p>
+        
+        <div class="space-y-4">
+            <!-- UPDATED LINE LINK -->
+            <a href="https://lin.ee/XYhmrzC1" target="_blank" class="block w-full bg-[#06C755] hover:bg-[#05b34c] text-white font-bold py-3 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                <i class="fa-brands fa-line text-2xl"></i> สอบถามเพิ่มเติมทาง LINE
+            </a>
+            
+            <button onclick="resetPage()" class="block w-full bg-white border-2 border-brand-primary text-brand-primary hover:bg-brand-light font-bold py-3 px-6 rounded-xl transition">
+                <i class="fa-solid fa-arrow-rotate-left mr-2"></i> ลงทะเบียนเพิ่ม / กลับหน้าหลัก
+            </button>
+        </div>
+    </div>
+    
+    <div class="mt-8 text-center">
+        <p class="text-brand-primary opacity-60 text-sm">VSO Visa & Study Overseas</p>
+    </div>
+  </div>
+
+
+  <script>
+    // --- ตั้งค่า (สำคัญ!) ---
+    const LIFF_ID = "2008709490-FPzLWusz"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby0t5GR7E-oHAwtrAKIixGC3TpC2pEFp9T5UhWtjwhh6_w0yDQakm9Yrc-XroJhMJQP/exec"; 
+
+    // --- LIFF Initialization ---
+    async function initializeLiff() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+        if (liff.isLoggedIn()) {
+          const profile = await liff.getProfile();
+          document.getElementById('lineDisplayName').value = profile.displayName;
+          document.getElementById('lineUserId').value = profile.userId;
+          document.getElementById('linePictureUrl').value = profile.pictureUrl || '';
+          
+          document.getElementById('lineProfileInfo').classList.remove('hidden');
+          document.getElementById('lineProfileName').textContent = profile.displayName;
+          if(profile.pictureUrl) {
+             const img = document.getElementById('lineProfileImg');
+             img.src = profile.pictureUrl;
+             img.classList.remove('hidden');
+          }
+        }
+      } catch (error) {
+        console.warn("LIFF Initialization failed:", error);
+      }
+    }
+    window.onload = initializeLiff;
+
+    // --- Form Logic ---
+    function toggleOtherPurpose(show) {
+       const el = document.getElementById('otherPurposeInput');
+       if(show) { el.classList.remove('hidden'); el.required = true; el.focus(); } 
+       else { el.classList.add('hidden'); el.required = false; el.value = ''; }
+    }
+    
+    function toggleOtherOccupation(show) {
+       const el = document.getElementById('otherOccupationInput');
+       if(show) { el.classList.remove('hidden'); el.required = true; el.focus(); } 
+       else { el.classList.add('hidden'); el.required = false; el.value = ''; }
+    }
+
+    async function submitForm(e) {
+      e.preventDefault(); 
+      Swal.fire({ 
+          title: 'กำลังบันทึกข้อมูล...', 
+          html: 'กรุณารอสักครู่',
+          allowOutsideClick: false,
+          didOpen: () => Swal.showLoading() 
+      });
+
+      const form = document.getElementById('vsoForm');
+      let purpose = form.purpose.value === 'other' ? 'อื่นๆ: ' + document.getElementById('otherPurposeInput').value : form.purpose.value;
+      let occupation = form.occupation.value === 'other' ? 'อื่นๆ: ' + document.getElementById('otherOccupationInput').value : form.occupation.value;
+
+      const formData = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        age: form.age.value,
+        education: form.education.value,
+        phone: form.phone.value,
+        email: form.email.value,
+        manualLineId: form.manualLineId.value,
+        country: form.country.value,
+        purpose: purpose,
+        history: form.history.value,
+        showMoney: form.showMoney.value,
+        occupation: occupation,
+        lineDisplayName: document.getElementById('lineDisplayName').value,
+        lineUserId: document.getElementById('lineUserId').value,
+        linePictureUrl: document.getElementById('linePictureUrl').value,
+        fileData: null, fileName: null
+      };
+
+      const send = () => {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            Swal.close();
+            // --- เปลี่ยนหน้าไปยังหน้าขอบคุณ ---
+            showThankYouPage();
+          } else {
+            throw new Error(data.message);
+          }
+        })
+        .catch(err => {
+          console.error("Submission Error:", err);
+          Swal.fire('เกิดข้อผิดพลาด', 'อาจเกิดจากปัญหาการเชื่อมต่อ (CORS) ในโหมดทดสอบ แต่ข้อมูลอาจถูกส่งไปแล้ว', 'error');
+        });
+      };
+
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput.files.length > 0) {
+        if (fileInput.files[0].size > 2 * 1024 * 1024) {
+            Swal.fire('ขนาดไฟล์ใหญ่เกินไป', 'กรุณาอัปโหลดไฟล์ไม่เกิน 2MB', 'warning');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+          formData.fileData = e.target.result;
+          formData.fileName = fileInput.files[0].name;
+          send();
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        send();
+      }
+    }
+
+    // ฟังก์ชันจัดการการเปลี่ยนหน้า
+    function showThankYouPage() {
+        const mainContent = document.getElementById('mainContentWrapper');
+        const thankYouContent = document.getElementById('thankYouContainer');
+        
+        // Hide Form
+        mainContent.classList.add('hidden');
+        
+        // Show Thank You
+        thankYouContent.classList.remove('hidden');
+        
+        // Scroll to top
+        window.scrollTo(0,0);
+    }
+
+    function resetPage() {
+        // Reset Form
+        document.getElementById('vsoForm').reset();
+        
+        const mainContent = document.getElementById('mainContentWrapper');
+        const thankYouContent = document.getElementById('thankYouContainer');
+        
+        // Hide Thank You
+        thankYouContent.classList.add('hidden');
+        
+        // Show Form
+        mainContent.classList.remove('hidden');
+        
+        // Scroll to top
+        window.scrollTo(0,0);
+    }
+  </script>
+</body>
+</html>
