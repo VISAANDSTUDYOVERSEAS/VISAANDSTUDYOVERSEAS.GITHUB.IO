@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,17 +25,15 @@
                         thai: ['Prompt', 'sans-serif'],
                     },
                     colors: {
-                        vsoNavy: '#002347',   /* Official Navy */
-                        vsoBlue: '#003366',   /* Secondary Blue */
-                        vsoOrange: '#F26522', /* Official Orange */
-                        vsoGray: '#F4F7FA',   /* Corporate Background */
-                    },
-                    screens: {
-                        'xs': '480px',
+                        vsoNavy: '#002347',   
+                        vsoBlue: '#003366',   
+                        vsoOrange: '#F26522', 
+                        vsoLight: '#F8FAFC',
+                        vsoSurface: '#FFFFFF',
                     },
                     boxShadow: {
-                        'card': '0 4px 6px -1px rgba(0, 35, 71, 0.05), 0 2px 4px -1px rgba(0, 35, 71, 0.03)',
-                        'card-hover': '0 20px 25px -5px rgba(0, 35, 71, 0.1), 0 10px 10px -5px rgba(0, 35, 71, 0.04)',
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.05)',
+                        'hover': '0 20px 40px -5px rgba(0, 35, 71, 0.1)',
                     }
                 }
             }
@@ -44,124 +42,136 @@
 
     <style>
         body {
-            background-color: #F4F7FA;
+            background-color: #F8FAFC;
             color: #334155;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
-        .corporate-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        /* Modern Card Style */
+        .modern-card {
+            background: #FFFFFF;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
-            text-decoration: none;
+            position: relative;
         }
 
-        .corporate-card:hover {
-            transform: translateY(-4px);
-            border-color: #F26522;
+        .modern-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -5px rgba(0, 35, 71, 0.1);
+            border-color: rgba(242, 101, 34, 0.2);
         }
 
-        .image-card-base { background-color: #002347; }
+        /* Scholarship Card Specifics */
+        .scholarship-card {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .scholarship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+        }
+        .uni-logo-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+        }
 
         .btn-primary {
-            background-color: #F26522;
+            background: linear-gradient(135deg, #F26522 0%, #FF8C42 100%);
             color: white;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .btn-primary:hover {
-            background-color: #d9531e;
-            box-shadow: 0 4px 12px rgba(242, 101, 34, 0.25);
+            box-shadow: 0 8px 20px rgba(242, 101, 34, 0.3);
+            transform: translateY(-1px);
         }
 
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Marquee Animation */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        
+        /* Marquee */
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
             padding-left: 100%;
-            animation: marquee 25s linear infinite;
+            animation: marquee 30s linear infinite;
         }
-
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
         .animate-marquee:hover { animation-play-state: paused; }
-        
-        /* Lightbox Fade In */
-        .lightbox-open {
-            display: flex !important;
-            opacity: 1 !important;
-        }
 
-        /* --- NEW ANIMATIONS FOR SLIDER --- */
-        /* Active slide state */
-        .slide.active {
-            opacity: 1;
-            z-index: 20;
-            pointer-events: auto;
-        }
-        
-        /* Zoom effect for image in active slide */
-        .slide.active .slide-img {
-            transform: scale(1.15); /* Zoom in */
-        }
-
-        /* Text Reveal Animations */
-        .slide.active .animate-item {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .animate-item {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* Delays for staggered effect */
+        /* Slider Animations */
+        .slide.active { opacity: 1; z-index: 20; pointer-events: auto; }
+        .slide.active .slide-img { transform: scale(1.1); }
+        .animate-item { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .slide.active .animate-item { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 0.1s; }
-        .delay-200 { transition-delay: 0.3s; }
-        .delay-300 { transition-delay: 0.5s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         
-        html { scroll-behavior: smooth; }
+        /* Utility */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .lightbox-open, .modal-open { display: flex !important; opacity: 1 !important; }
     </style>
 </head>
 <body class="font-sans antialiased pb-20 selection:bg-vsoOrange selection:text-white">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 py-3 md:py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <!-- Logo Zone -->
+    <!-- Header (Sticky & Glassmorphism) -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 glass-panel shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- Logo -->
             <a href="https://www.visastudyoverseas.com/th" class="flex items-center gap-3 group shrink-0">
                 <img src="https://img5.pic.in.th/file/secure-sv1/-5dddeed44d7957161.png" 
                      alt="VSO Logo" 
-                     class="h-10 md:h-12 w-auto object-contain">
+                     class="h-10 md:h-11 w-auto object-contain transition-transform group-hover:scale-105">
             </a>
             
-            <!-- Auto-scrolling Text Area -->
-            <div class="hidden md:flex flex-1 mx-4 lg:mx-8 overflow-hidden relative items-center h-10 bg-slate-50 rounded-full border border-slate-100 px-4">
-                <div class="animate-marquee text-sm text-vsoBlue font-thai font-medium flex items-center gap-8">
-                    <span class="flex items-center gap-2"><i data-lucide="megaphone" class="w-4 h-4 text-vsoOrange"></i> ยินดีต้อนรับสู่ VSO Visa & Study Overseas เพื่อนคู่คิดเรื่องเรียนต่อต่างประเทศ</span>
-                    <span class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-yellow-500"></i> สมัครเรียนภาษาออสเตรเลียวันนี้ รับส่วนลดพิเศษสูงสุด!</span>
-                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> บริการยื่นวีซ่า ปรึกษาฟรีไม่มีค่าใช้จ่ายเมื่อสมัครเรียนกับเรา</span>
-                    <span class="flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-blue-500"></i> ครอบคลุม ออสเตรเลีย นิวซีแลนด์ แคนาดา มอลตา ดูไบ</span>
+            <!-- Marquee (Desktop Only) -->
+            <div class="hidden lg:flex flex-1 mx-8 overflow-hidden relative items-center h-9 bg-slate-100/50 rounded-full px-4">
+                <div class="animate-marquee text-xs md:text-sm text-vsoBlue font-thai font-medium flex items-center gap-10">
+                    <span class="flex items-center gap-2"><i data-lucide="megaphone" class="w-4 h-4 text-vsoOrange"></i> ยินดีต้อนรับสู่ VSO Visa & Study Overseas</span>
+                    <span class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-yellow-500"></i> สมัครเรียนภาษาออสเตรเลียวันนี้ รับส่วนลดพิเศษ!</span>
+                    <span class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> บริการยื่นวีซ่าฟรีเมื่อสมัครเรียนกับเรา</span>
                 </div>
-                <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-50 to-transparent z-10"></div>
-                <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-50 to-transparent z-10"></div>
             </div>
             
-            <!-- Buttons Zone -->
+            <!-- Contact Buttons -->
             <div class="flex items-center gap-3 text-sm font-medium shrink-0">
-                <a href="tel:020000000" class="hidden lg:flex items-center gap-2 text-vsoNavy hover:text-vsoOrange transition-colors px-3 py-2">
+                <a href="tel:020000000" class="hidden md:flex items-center gap-2 text-vsoNavy hover:text-vsoOrange transition-colors px-3 py-2 bg-slate-50 rounded-full hover:bg-slate-100">
                     <i data-lucide="phone" class="w-4 h-4"></i> <span class="font-thai">โทรสอบถาม</span>
                 </a>
-                <a href="https://lin.ee/nHohUpi" target="_blank" class="bg-vsoBlue hover:bg-vsoNavy text-white px-5 py-2 rounded-md font-thai transition-colors flex items-center gap-2 shadow-sm">
+                <a href="https://lin.ee/nHohUpi" target="_blank" class="btn-primary px-5 py-2.5 rounded-full font-thai flex items-center gap-2 shadow-md">
                     <i data-lucide="message-circle" class="w-4 h-4"></i>
                     <span>ติดต่อเรา</span>
                 </a>
@@ -169,309 +179,320 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 pt-8 md:pt-12">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 pt-28 md:pt-32">
         
-        <!-- === NEW: ANIMATED HERO SLIDER === -->
-        <div class="relative w-full rounded-2xl overflow-hidden mb-16 shadow-2xl aspect-[4/5] md:aspect-[21/9] group isolate bg-vsoNavy">
-            
-            <!-- Slides Container (No longer flex row, but stacked) -->
-            <div id="slider-container" class="relative w-full h-full">
-                
-                <!-- Slide 1: ทุนเรียนฟรี 100% UNSW -->
-                <div class="slide active absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-20" data-index="0">
-                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png')">
-                        <img src="https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png" 
-                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Scholarship Promo">
-                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/40 to-transparent md:bg-gradient-to-r md:from-vsoNavy md:via-vsoNavy/70 md:to-transparent opacity-90 md:opacity-100"></div>
-                    </div>
-                    
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
-                        <div class="animate-item delay-100">
-                            <span class="inline-block px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded w-fit mb-4 shadow-lg">ทุนการศึกษา UNSW</span>
-                        </div>
-                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
-                            ทุนเรียนฟรี 100%<br>จากมหาวิทยาลัย UNSW
-                        </h2>
-                        <p class="animate-item delay-300 text-gray-200 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-md hidden md:block">
-                            โอกาสครั้งสำคัญ! ทุนการศึกษาเต็มจำนวนจากมหาวิทยาลัยชั้นนำระดับโลก UNSW ออสเตรเลีย สมัครด่วนจำนวนจำกัด
-                        </p>
-                    </div>
+        <!-- Section Header: News -->
+        <div class="flex flex-col md:flex-row justify-between items-end mb-6 animate-fade-in-up">
+            <div class="flex items-center gap-4">
+                <div class="w-2 h-10 bg-gradient-to-b from-vsoOrange to-orange-400 rounded-full"></div>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-vsoNavy tracking-tight">อัปเดต<span class="text-vsoOrange">ข่าวสาร</span>และโปรโมชั่น</h2>
+                    <p class="text-slate-500 text-sm font-thai mt-1">ติดตามความเคลื่อนไหวและสิทธิพิเศษล่าสุดจาก VSO</p>
                 </div>
-
-                <!-- Slide 2: ต่อวีซ่ารับ Gift Card -->
-                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="1">
-                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/19420d55d0beee681.png')">
-                        <img src="https://img2.pic.in.th/19420d55d0beee681.png" 
-                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Visa Service">
-                        <div class="absolute inset-0 bg-gradient-to-t from-vsoBlue via-vsoBlue/40 to-transparent md:bg-gradient-to-r md:from-vsoBlue md:via-vsoBlue/70 md:to-transparent opacity-90 md:opacity-100"></div>
-                    </div>
-                    
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
-                        <div class="animate-item delay-100">
-                            <span class="inline-block px-3 py-1 bg-yellow-500 text-vsoNavy text-xs font-bold uppercase tracking-wider rounded w-fit mb-4 shadow-lg">โปรโมชั่นต่อวีซ่า</span>
-                        </div>
-                        <h2 class="animate-item delay-200 text-2xl md:text-4xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
-                            ต่อวีซ่ากับ VSO วันนี้<br>รับฟรี Gift Card สูงสุด $600
-                        </h2>
-                        <div class="animate-item delay-300 text-gray-100 text-sm md:text-base font-thai mb-6 max-w-lg drop-shadow-md bg-black/20 p-4 rounded-lg backdrop-blur-sm border-l-4 border-yellow-400">
-                            <ul class="list-disc pl-4 space-y-1">
-                                <li>รับ Coles/Woolworths Gift Card <strong>$300</strong> (ต่อ 1 ปี)</li>
-                                <li>รับ Coles/Woolworths Gift Card <strong>$600</strong> (ต่อ 2 ปี)</li>
-                                <li class="text-yellow-300 font-semibold mt-2">รับสิทธิ์ง่ายๆ แค่ต่อวีซ่าภายใน 15 มีนาคม 2026 นี้เท่านั้น!</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 3: จับคู่ต่อวีซ่า -->
-                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="2">
-                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png')">
-                        <img src="https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png" 
-                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Workshop">
-                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/40 to-transparent md:bg-gradient-to-r md:from-vsoNavy md:via-vsoNavy/60 md:to-transparent opacity-90 md:opacity-100"></div>
-                    </div>
-                    
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
-                        <div class="animate-item delay-100">
-                            <span class="inline-block px-3 py-1 bg-green-500 text-white text-xs font-bold uppercase tracking-wider rounded w-fit mb-4 shadow-lg">โปรโมชั่นคู่หู</span>
-                        </div>
-                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
-                            จับคู่กันมาต่อวีซ่า<br>รับ Cash Back คนละ $500
-                        </h2>
-                        <p class="animate-item delay-300 text-gray-200 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-md">
-                            สิทธิพิเศษ! เพียงจับคู่เพื่อนมาต่อวีซ่าพร้อมกัน ภายในวันที่ 15 มีนาคมนี้ รับเงินคืนเข้ากระเป๋าทันทีคนละ $500
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Slide 4: ส่วนลดค่าเรียน -->
-                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="3">
-                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/34cc9071751ad9928.png')">
-                        <img src="https://img2.pic.in.th/34cc9071751ad9928.png" 
-                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-linear scale-100" alt="Consultation">
-                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/50 to-transparent md:bg-gradient-to-r md:from-vsoNavy md:via-vsoNavy/80 md:to-transparent opacity-95 md:opacity-100"></div>
-                    </div>
-                    
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
-                        <div class="animate-item delay-100">
-                            <span class="inline-block px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded w-fit mb-3 shadow-lg">ส่วนลดค่าเรียน 4 ประเทศยอดฮิต</span>
-                        </div>
-                        <h2 class="animate-item delay-200 text-2xl md:text-3xl font-bold text-white mb-3 leading-tight drop-shadow-lg">
-                            ออสเตรเลีย นิวซีแลนด์ ดูไบ มอลตา
-                        </h2>
-                        <div class="animate-item delay-300 bg-white/10 p-4 rounded-xl backdrop-blur-md border border-white/20 mb-6 max-w-md">
-                            <h4 class="text-vsoOrange font-bold mb-2 text-sm md:text-base border-b border-white/20 pb-2">🎉 ส่วนลดโดนใจ:</h4>
-                            <ul class="text-white text-xs md:text-sm space-y-2 font-thai">
-                                <li class="flex justify-between"><span>📚 ลงเรียน 1 ปี</span> <span class="font-bold text-green-300">ลดทันที 15,000฿</span></li>
-                                <li class="flex justify-between"><span>📚 ลงเรียน 6-9 เดือน</span> <span class="font-bold text-green-300">ลดทันที 8,000฿</span></li>
-                                <li class="flex justify-between"><span>📚 ลงเรียน 3-5 เดือน</span> <span class="font-bold text-green-300">ลดทันที 3,500฿</span></li>
-                                <li class="flex justify-between"><span>📚 ลงเรียน 1-2 เดือน</span> <span class="font-bold text-green-300">ลดทันที 1,500฿</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-
-            <!-- Progress Bar -->
-            <div class="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-30">
-                <div id="progress-bar" class="h-full bg-vsoOrange transition-all duration-100 ease-linear w-0"></div>
-            </div>
-
-            <!-- Slider Controls (Dots) -->
-            <div class="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30 pointer-events-auto" onclick="event.stopPropagation()">
-                <button onclick="goToSlide(0)" id="dot-0" class="h-2 rounded-full bg-white transition-all duration-300 w-8 opacity-100"></button>
-                <button onclick="goToSlide(1)" id="dot-1" class="h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300 w-2 opacity-100"></button>
-                <button onclick="goToSlide(2)" id="dot-2" class="h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300 w-2 opacity-100"></button>
-                <button onclick="goToSlide(3)" id="dot-3" class="h-2 rounded-full bg-white/40 hover:bg-white transition-all duration-300 w-2 opacity-100"></button>
-            </div>
-
-            <!-- Arrows -->
-            <button onclick="event.stopPropagation(); prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer pointer-events-auto z-30">
-                <i data-lucide="chevron-left" class="w-6 h-6"></i>
-            </button>
-            <button onclick="event.stopPropagation(); nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer pointer-events-auto z-30">
-                <i data-lucide="chevron-right" class="w-6 h-6"></i>
+            <button onclick="openNewsGallery()" class="hidden md:flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-vsoOrange transition-colors bg-white border border-slate-200 px-4 py-2 rounded-full shadow-sm hover:shadow-md">
+                ดูทั้งหมด <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
         </div>
 
-        <!-- Hero Text -->
+        <!-- HERO SLIDER -->
+        <div class="relative w-full rounded-3xl overflow-hidden mb-20 shadow-soft aspect-[4/5] md:aspect-[16/9] group isolate bg-slate-100 border border-slate-100">
+            
+            <div id="slider-container" class="relative w-full h-full">
+                <!-- Slide 1 -->
+                <div class="slide active absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 z-20" data-index="0">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png')">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Scholarship">
+                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังเป็น 50% และปรับ Gradient ให้ทึบขึ้นเพื่อให้อ่านง่าย -->
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-flex items-center px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded-lg mb-4 shadow-lg border border-white/20">Scholarship</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
+                            ทุนเรียนฟรี 100%<br>จาก UNSW
+                        </h2>
+                        <p class="animate-item delay-300 text-gray-100 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-xl hidden md:block font-medium">
+                            โอกาสครั้งสำคัญ! ทุนการศึกษาเต็มจำนวนจากมหาวิทยาลัยชั้นนำระดับโลก UNSW ออสเตรเลีย
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 z-10 pointer-events-none" data-index="1">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/19420d55d0beee681.png')">
+                        <img src="https://img2.pic.in.th/19420d55d0beee681.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Visa Promo">
+                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังและ Gradient -->
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-flex px-3 py-1 bg-yellow-500 text-vsoNavy text-xs font-bold uppercase tracking-wider rounded-lg mb-4 shadow-lg border border-white/20">Promotion</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-2xl md:text-4xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
+                            ต่อวีซ่ารับฟรี<br>Gift Card สูงสุด $600
+                        </h2>
+                        <div class="animate-item delay-300 text-gray-100 text-sm font-thai mb-6 max-w-lg bg-black/40 p-4 rounded-xl backdrop-blur-md border border-white/10 shadow-lg">
+                            <ul class="list-disc pl-4 space-y-1 font-medium">
+                                <li>รับ Coles/Woolworths Gift Card $300 (1 ปี)</li>
+                                <li>รับ Coles/Woolworths Gift Card $600 (2 ปี)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 z-10 pointer-events-none" data-index="2">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png')">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Couple Promo">
+                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังและ Gradient -->
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-flex px-3 py-1 bg-green-500 text-white text-xs font-bold uppercase tracking-wider rounded-lg mb-4 shadow-lg border border-white/20">Duo Deal</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
+                            จับคู่ต่อวีซ่า<br>รับ Cashback $500
+                        </h2>
+                        <p class="animate-item delay-300 text-gray-100 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-xl text-shadow font-medium">
+                            สิทธิพิเศษ! เพียงจับคู่เพื่อนมาต่อวีซ่าพร้อมกัน รับเงินคืนเข้ากระเป๋าทันทีคนละ $500
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 z-10 pointer-events-none" data-index="3">
+                    <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/34cc9071751ad9928.png')">
+                        <img src="https://img2.pic.in.th/34cc9071751ad9928.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Discount">
+                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังและ Gradient -->
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                    </div>
+                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                        <div class="animate-item delay-100">
+                            <span class="inline-flex px-3 py-1 bg-white text-vsoOrange text-xs font-bold uppercase tracking-wider rounded-lg mb-3 shadow-lg">Hot Sale</span>
+                        </div>
+                        <h2 class="animate-item delay-200 text-2xl md:text-3xl font-bold text-white mb-3 leading-tight drop-shadow-2xl">
+                            ส่วนลดค่าเรียน 4 ประเทศ
+                        </h2>
+                        <div class="animate-item delay-300 bg-black/60 p-4 rounded-xl backdrop-blur-md border border-white/20 mb-6 max-w-md shadow-lg">
+                            <ul class="text-white text-xs md:text-sm space-y-2 font-thai font-medium">
+                                <li class="flex justify-between border-b border-white/10 pb-1"><span>📚 ลงเรียน 1 ปี</span> <span class="font-bold text-green-300">ลด 15,000฿</span></li>
+                                <li class="flex justify-between pt-1"><span>📚 ลงเรียน 6-9 เดือน</span> <span class="font-bold text-green-300">ลด 8,000฿</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30 pointer-events-auto" onclick="event.stopPropagation()">
+                <button onclick="goToSlide(0)" id="dot-0" class="h-1.5 rounded-full bg-white transition-all w-8 opacity-100 shadow-sm"></button>
+                <button onclick="goToSlide(1)" id="dot-1" class="h-1.5 rounded-full bg-white/40 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+                <button onclick="goToSlide(2)" id="dot-2" class="h-1.5 rounded-full bg-white/40 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+                <button onclick="goToSlide(3)" id="dot-3" class="h-1.5 rounded-full bg-white/40 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+            </div>
+            
+            <button onclick="event.stopPropagation(); prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 pointer-events-auto border border-white/20">
+                <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            </button>
+            <button onclick="event.stopPropagation(); nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 pointer-events-auto border border-white/20">
+                <i data-lucide="chevron-right" class="w-6 h-6"></i>
+            </button>
+            
+            <!-- Progress -->
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-30">
+                <div id="progress-bar" class="h-full bg-vsoOrange shadow-[0_0_10px_rgba(242,101,34,0.7)] w-0"></div>
+            </div>
+        </div>
+
+        <!-- Section Header: Destinations -->
         <div class="text-center mb-10 md:mb-16">
-            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 tracking-tight text-vsoNavy leading-tight">
-                เลือกประเทศที่ <span class="text-vsoOrange underline decoration-4 decoration-vsoOrange/20 underline-offset-4">ใช่สำหรับคุณ</span>
+            <span class="text-vsoOrange font-bold tracking-widest text-xs uppercase mb-2 block">Choose Your Destination</span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight text-vsoNavy leading-tight">
+                เลือกประเทศที่ <span class="relative inline-block text-vsoOrange">ใช่สำหรับคุณ
+                    <svg class="absolute w-full h-2 bottom-1 left-0 text-vsoOrange/20 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none"/></svg>
+                </span>
             </h1>
-            <p class="text-slate-600 text-base md:text-xl font-thai font-light max-w-2xl mx-auto px-4">
+            <p class="text-slate-500 text-base font-thai font-light max-w-xl mx-auto px-4">
                 บริการแนะแนวศึกษาต่อต่างประเทศครบวงจร โดยทีมงานมืออาชีพที่มีประสบการณ์
             </p>
         </div>
 
-        <!-- Corporate Bento Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-min">
-
-            <!-- 1. Australia (Main Hero) -->
-            <a id="australia" href="https://visaandstudyoverseas.github.io/australia" target="_blank" rel="noopener noreferrer" class="corporate-card rounded-xl sm:col-span-2 lg:col-span-2 lg:row-span-2 relative group cursor-pointer text-white block min-h-[300px] sm:min-h-[350px] scroll-mt-32 shadow-card hover:shadow-card-hover hover:z-10">
-                <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1000&auto=format&fit=crop" 
-                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Australia">
-                <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy via-vsoNavy/40 to-transparent opacity-90"></div>
-                
-                <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-                    <div class="flex justify-between items-end">
-                        <div class="w-full">
-                            <div class="bg-vsoOrange px-3 py-1 rounded w-fit mb-3">
-                                <span class="text-[10px] md:text-xs font-bold uppercase tracking-wider text-white">Recommended</span>
-                            </div>
-                            <h2 class="text-3xl md:text-4xl font-bold mb-2">Australia</h2>
-                            <p class="text-gray-200 font-thai text-sm mb-4 line-clamp-2 w-[90%] font-light">
-                                ดินแดนแห่งโอกาส การศึกษาคุณภาพระดับโลก พร้อมสิทธิ์ทำงานระหว่างเรียน
-                            </p>
-                            <div class="flex items-center gap-2 text-sm font-semibold text-white group-hover:gap-3 transition-all border-b border-white/30 pb-1 w-fit">
-                                ดูรายละเอียด <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </div>
-                        </div>
+        <!-- Destinations Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 auto-rows-min mb-24">
+            <!-- Australia -->
+            <a id="australia" href="https://visaandstudyoverseas.github.io/australia" target="_blank" rel="noopener noreferrer" class="modern-card sm:col-span-2 lg:col-span-2 lg:row-span-2 group min-h-[320px] md:min-h-[400px]">
+                <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Australia">
+                <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy/90 via-vsoNavy/20 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 w-full text-white">
+                    <span class="inline-block px-2 py-1 bg-white/20 backdrop-blur-md rounded-md text-[10px] font-bold uppercase mb-3 border border-white/20">Recommended</span>
+                    <h2 class="text-4xl font-bold mb-2">Australia</h2>
+                    <p class="text-slate-200 font-thai text-sm mb-4 line-clamp-2 opacity-90">ดินแดนแห่งโอกาส การศึกษาคุณภาพระดับโลก พร้อมสิทธิ์ทำงานระหว่างเรียน</p>
+                    <div class="flex items-center gap-2 text-sm font-semibold group-hover:gap-4 transition-all text-vsoOrange">
+                        ดูรายละเอียด <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </div>
                 </div>
             </a>
-
-            <!-- 2. New Zealand -->
-            <a id="newzealand" href="https://visaandstudyoverseas.github.io/nzlc" target="_blank" rel="noopener noreferrer" class="corporate-card rounded-xl col-span-1 relative group cursor-pointer bg-vsoNavy text-white block min-h-[220px] scroll-mt-32 shadow-card hover:shadow-card-hover hover:z-10">
-                 <img src="https://images.unsplash.com/photo-1589802829985-817e51171b92?q=80&w=600&auto=format&fit=crop" 
-                      class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-700" alt="New Zealand">
-                <div class="absolute inset-0 bg-vsoNavy/40 mix-blend-multiply"></div>
-                <div class="absolute top-0 right-0 p-5">
-                    <div class="bg-white/10 p-2 rounded-lg backdrop-blur-sm">
-                        <i data-lucide="mountain" class="text-white w-5 h-5"></i>
-                    </div>
+            <!-- New Zealand -->
+            <a id="newzealand" href="https://visaandstudyoverseas.github.io/nzlc" target="_blank" rel="noopener noreferrer" class="modern-card col-span-1 group bg-vsoNavy text-white min-h-[240px]">
+                 <img src="https://images.unsplash.com/photo-1589802829985-817e51171b92?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-40" alt="New Zealand">
+                <div class="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center">
+                    <i data-lucide="mountain" class="w-5 h-5"></i>
                 </div>
                 <div class="absolute bottom-0 left-0 p-6">
-                    <h3 class="text-xl font-bold">New Zealand</h3>
-                    <p class="text-xs text-gray-300 font-thai mt-1">ธรรมชาติบำบัด & การเรียนที่เน้นปฏิบัติ</p>
+                    <h3 class="text-xl font-bold mb-1">New Zealand</h3>
+                    <p class="text-xs text-slate-300 font-thai">ธรรมชาติบำบัด & การเรียนที่เน้นปฏิบัติ</p>
                 </div>
             </a>
-
-            <!-- 3. Stats -->
-            <a href="#reviews" class="corporate-card rounded-xl col-span-1 flex flex-col items-center justify-center text-center p-6 bg-white relative overflow-hidden block hover:no-underline min-h-[220px] scroll-mt-32 shadow-card hover:shadow-card-hover border-t-4 border-t-vsoOrange hover:z-10">
-                <h3 class="text-5xl font-bold text-vsoNavy">98%</h3>
-                <p class="text-slate-500 text-sm font-thai mt-2">นักเรียนได้รับวีซ่าผ่าน</p>
+            <!-- Stats -->
+            <div class="modern-card col-span-1 flex flex-col items-center justify-center text-center p-6 bg-white min-h-[240px] border-t-4 border-t-vsoOrange">
+                <h3 class="text-5xl font-bold text-vsoNavy mb-2">98%</h3>
+                <p class="text-slate-500 text-sm font-thai">นักเรียนได้รับวีซ่าผ่าน</p>
                 <div class="mt-6 flex -space-x-3 justify-center">
-                    <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=1" alt="">
-                    <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=5" alt="">
-                    <img class="w-10 h-10 rounded-full border-2 border-white" src="https://i.pravatar.cc/100?img=8" alt="">
-                    <div class="w-10 h-10 rounded-full border-2 border-white bg-vsoNavy flex items-center justify-center text-xs text-white font-bold">+500</div>
+                    <img class="w-10 h-10 rounded-full border-2 border-white shadow-sm" src="https://i.pravatar.cc/100?img=1" alt="">
+                    <img class="w-10 h-10 rounded-full border-2 border-white shadow-sm" src="https://i.pravatar.cc/100?img=5" alt="">
+                    <div class="w-10 h-10 rounded-full border-2 border-white bg-vsoNavy flex items-center justify-center text-xs text-white font-bold shadow-sm">+500</div>
+                </div>
+            </div>
+            <!-- Canada -->
+            <a id="canada" href="javascript:void(0)" onclick="openComingSoonModal('Canada')" class="modern-card sm:col-span-2 lg:col-span-2 group min-h-[240px] overflow-hidden flex flex-row">
+                <div class="w-1/2 p-8 flex flex-col justify-center relative z-10 bg-white">
+                    <div class="flex items-center gap-2 mb-3 text-vsoOrange">
+                         <i data-lucide="map-pin" class="w-4 h-4"></i>
+                         <span class="text-xs font-bold uppercase tracking-wider">North America</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2 text-vsoNavy">Canada</h3>
+                    <p class="text-slate-500 text-sm font-thai mb-0 line-clamp-2">คุณภาพชีวิตอันดับต้นๆ เปิดกว้างสำหรับผู้อพยพ</p>
+                </div>
+                <div class="w-1/2 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Canada">
                 </div>
             </a>
-
-            <!-- 4. Canada -->
-            <a id="canada" href="#canada" class="corporate-card rounded-xl sm:col-span-2 lg:col-span-2 relative group cursor-pointer overflow-hidden block min-h-[220px] scroll-mt-32 shadow-card hover:shadow-card-hover bg-white hover:z-10">
-                <div class="absolute inset-0 flex">
-                    <div class="w-1/2 p-6 md:p-8 flex flex-col justify-center z-10 relative">
-                        <div class="flex items-center gap-2 mb-3 text-vsoOrange">
-                             <i data-lucide="map-pin" class="w-4 h-4"></i>
-                             <span class="text-xs font-bold uppercase tracking-wider">North America</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3 text-vsoNavy">Canada</h3>
-                        <p class="text-slate-600 text-sm font-thai mb-6 line-clamp-3 leading-relaxed">
-                            คุณภาพชีวิตอันดับต้นๆ ของโลก เปิดกว้างสำหรับผู้อพยพ และการศึกษาที่ได้มาตรฐาน
-                        </p>
-                         <div class="w-10 h-10 rounded-full border border-gray-200 text-vsoNavy flex items-center justify-center group-hover:bg-vsoOrange group-hover:border-vsoOrange group-hover:text-white transition-all">
-                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
-                        </div>
-                    </div>
-                    <div class="w-1/2 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=600&auto=format&fit=crop" 
-                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Canada">
-                        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent"></div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- 5. Malta -->
-            <a id="malta" href="#malta" class="corporate-card rounded-xl col-span-1 lg:col-span-2 relative group cursor-pointer text-white overflow-hidden block min-h-[220px] scroll-mt-32 shadow-card hover:shadow-card-hover hover:z-10">
-                <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=1000&auto=format&fit=crop" 
-                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Malta">
+            <!-- Malta -->
+            <a id="malta" href="javascript:void(0)" onclick="openComingSoonModal('Malta')" class="modern-card col-span-1 lg:col-span-2 group text-white min-h-[240px]">
+                <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Malta">
                  <div class="absolute inset-0 bg-vsoNavy/80 group-hover:bg-vsoNavy/70 transition-colors"></div>
-                 <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <div class="flex items-center gap-2 mb-2 text-sky-300">
-                                <i data-lucide="waves" class="w-4 h-4"></i>
-                                <span class="text-xs font-bold uppercase tracking-wider">Europe</span>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold">Malta</h3>
-                            <p class="text-sm text-gray-300 font-thai max-w-md line-clamp-2 md:line-clamp-none mt-1">
-                                เรียนภาษาอังกฤษในบรรยากาศเมดิเตอร์เรเนียน
-                            </p>
-                        </div>
-                        <div class="w-10 h-10 rounded-full border border-white/30 text-white flex items-center justify-center group-hover:bg-white group-hover:text-vsoNavy transition-colors shrink-0 ml-4">
-                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        </div>
+                 <div class="absolute bottom-0 left-0 p-6 w-full flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1 text-sky-300 text-xs font-bold uppercase"><i data-lucide="waves" class="w-3 h-3"></i> Europe</div>
+                        <h3 class="text-2xl font-bold">Malta</h3>
+                        <p class="text-sm text-slate-300 font-thai max-w-xs line-clamp-1">เรียนภาษาบรรยากาศเมดิเตอร์เรเนียน</p>
                     </div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-vsoNavy transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
                  </div>
             </a>
-
-             <!-- 6. Dubai -->
-             <a id="dubai" href="#dubai" class="corporate-card rounded-xl col-span-1 lg:col-span-2 relative group cursor-pointer text-white overflow-hidden block min-h-[220px] scroll-mt-32 shadow-card hover:shadow-card-hover hover:z-10">
-                <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1000&auto=format&fit=crop" 
-                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Dubai">
+             <!-- Dubai -->
+             <a id="dubai" href="javascript:void(0)" onclick="openComingSoonModal('Dubai')" class="modern-card col-span-1 lg:col-span-2 group text-white min-h-[240px]">
+                <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Dubai">
                  <div class="absolute inset-0 bg-vsoOrange/80 mix-blend-multiply group-hover:bg-vsoOrange/70 transition-colors"></div>
-                 <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-                    <div class="flex justify-between items-end">
-                        <div>
-                            <div class="flex items-center gap-2 mb-2 text-white">
-                                <i data-lucide="crown" class="w-4 h-4"></i>
-                                <span class="text-xs font-bold uppercase tracking-wider">Middle East</span>
-                            </div>
-                            <h3 class="text-xl md:text-2xl font-bold">Dubai</h3>
-                            <p class="text-sm text-white/90 font-thai max-w-md line-clamp-2 md:line-clamp-none mt-1">
-                                เรียนและทำงานได้ทันที รายได้ดี ไม่ต้องใช้ Statement
-                            </p>
-                        </div>
-                        <div class="w-10 h-10 rounded-full border border-white/30 text-white flex items-center justify-center group-hover:bg-white group-hover:text-vsoOrange transition-colors shrink-0 ml-4">
-                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        </div>
+                 <div class="absolute bottom-0 left-0 p-6 w-full flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1 text-white/80 text-xs font-bold uppercase"><i data-lucide="crown" class="w-3 h-3"></i> Middle East</div>
+                        <h3 class="text-2xl font-bold">Dubai</h3>
+                        <p class="text-sm text-white/90 font-thai max-w-xs line-clamp-1">ทำงานได้ทันที ไม่ใช้ Statement</p>
                     </div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-vsoOrange transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
                  </div>
             </a>
-
         </div>
 
-        <!-- Corporate Features List -->
-        <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 px-4 border-t border-gray-200 pt-16">
-            <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div class="w-14 h-14 bg-vsoNavy text-white rounded-full flex items-center justify-center mb-5 shadow-lg shadow-vsoNavy/20">
-                    <i data-lucide="file-check" class="w-7 h-7"></i>
+        <!-- SCHOLARSHIPS SECTION -->
+        <div id="scholarships" class="mb-24 scroll-mt-24 py-12 px-4 -mx-4 bg-white rounded-[3rem] shadow-sm border border-slate-100">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 px-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-vsoNavy mb-2">ทุนการศึกษา <span class="text-vsoOrange">แนะนำ</span></h2>
+                    <p class="text-slate-500 font-thai">รวบรวมทุนส่วนลดค่าเรียนจากมหาวิทยาลัยชั้นนำ</p>
                 </div>
-                <h4 class="font-bold text-lg mb-2 text-vsoNavy">บริการวีซ่าครบวงจร</h4>
-                <p class="text-slate-500 text-sm font-thai leading-relaxed">ทีมงานมืออาชีพช่วยตรวจสอบเอกสารและยื่นวีซ่าให้คุณทุกขั้นตอน เพื่อความมั่นใจสูงสุด</p>
+                <button onclick="openScholarshipModal()" class="hidden md:flex items-center gap-2 text-vsoOrange font-bold hover:gap-3 transition-all bg-transparent border-0 cursor-pointer px-4 py-2 rounded-full hover:bg-orange-50">
+                    ดูรายชื่อทุนทั้งหมด <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
             </div>
-            <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div class="w-14 h-14 bg-vsoOrange text-white rounded-full flex items-center justify-center mb-5 shadow-lg shadow-vsoOrange/20">
-                    <i data-lucide="home" class="w-7 h-7"></i>
+
+            <!-- High Value Cards (Grid) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 mb-12">
+                <!-- Griffith -->
+                <div class="scholarship-card p-6 cursor-pointer group" onclick="openDetailModal('Griffith University', 'Vice Chancellor\'s International Scholarship', 'ส่วนลด 50%', 'สำหรับนักเรียนที่มีผลการเรียนโดดเด่น GPA สูง', 'Requires Application', 'AUS')">
+                    <!-- Brand Color Bar -->
+                    <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-red-600 to-red-800"></div>
+                    
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="bg-red-50 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full border border-red-100">สูงสุด 50%</span>
+                        <!-- Custom Initials Logo -->
+                        <div class="uni-logo-wrapper bg-white text-red-700 shadow-sm border border-red-50">GU</div>
+                    </div>
+                    
+                    <h3 class="text-lg font-bold text-vsoNavy mb-1 group-hover:text-red-600 transition-colors">Griffith University</h3>
+                    <p class="text-xs text-slate-400 font-bold uppercase mb-3">Queensland</p>
+                    <p class="text-sm text-slate-600 font-thai line-clamp-2 mb-4">Vice Chancellor's International Scholarship ส่วนลดค่าเรียน 50% ตลอดหลักสูตร</p>
+                    <div class="flex items-center text-xs font-medium text-vsoOrange mt-auto">
+                        อ่านเงื่อนไข <i data-lucide="chevron-right" class="w-3 h-3 ml-1"></i>
+                    </div>
                 </div>
-                <h4 class="font-bold text-lg mb-2 text-vsoNavy">จัดหาที่พักที่ปลอดภัย</h4>
-                <p class="text-slate-500 text-sm font-thai leading-relaxed">เรามีเครือข่ายโฮสต์แฟมิลี่และหอพักที่ได้รับการตรวจสอบมาตรฐานความปลอดภัย</p>
+                
+                <!-- UTS -->
+                <div class="scholarship-card p-6 cursor-pointer group" onclick="openDetailModal('University of Technology Sydney', 'UTS GCE A Level and IB Scholarship', 'ส่วนลด 50%', 'สำหรับนักเรียนจบหลักสูตรนานาชาติ A Level หรือ IB Diploma', 'Requires Application', 'AUS')">
+                    <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-slate-800 to-black"></div>
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-1 rounded-full border border-slate-200">สูงสุด 50%</span>
+                        <div class="uni-logo-wrapper bg-white text-slate-900 shadow-sm border border-slate-100">UTS</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-vsoNavy mb-1 group-hover:text-vsoOrange transition-colors">UTS Sydney</h3>
+                    <p class="text-xs text-slate-400 font-bold uppercase mb-3">NSW</p>
+                    <p class="text-sm text-slate-600 font-thai line-clamp-2 mb-4">ทุนสำหรับนักเรียนจบ A Level / IB รับส่วนลด 50% หรือ Pathway Scholarship</p>
+                    <div class="flex items-center text-xs font-medium text-vsoOrange mt-auto">
+                        อ่านเงื่อนไข <i data-lucide="chevron-right" class="w-3 h-3 ml-1"></i>
+                    </div>
+                </div>
+
+                <!-- UOW -->
+                <div class="scholarship-card p-6 cursor-pointer group" onclick="openDetailModal('University of Wollongong', 'Postgraduate Academic Excellence', 'ส่วนลด 30%', 'สำหรับปริญญาโท เกรดเฉลี่ยดี พิจารณาอัตโนมัติ', 'Auto', 'AUS')">
+                    <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-rose-600 to-rose-700"></div>
+                    <div class="flex justify-between items-start mb-12">
+                        <span class="bg-blue-50 text-blue-600 text-[10px] font-bold px-2 py-1 rounded-full border border-blue-100">30% Auto</span>
+                        <div class="uni-logo-wrapper bg-white text-rose-700 shadow-sm border border-rose-50">UOW</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-vsoNavy mb-1 group-hover:text-rose-600 transition-colors">Univ. of Wollongong</h3>
+                    <p class="text-xs text-slate-400 font-bold uppercase mb-3">NSW</p>
+                    <p class="text-sm text-slate-600 font-thai line-clamp-2 mb-4">Postgraduate Academic Excellence Scholarship พิจารณาอัตโนมัติ</p>
+                    <div class="flex items-center text-xs font-medium text-vsoOrange mt-auto">
+                        อ่านเงื่อนไข <i data-lucide="chevron-right" class="w-3 h-3 ml-1"></i>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-col items-center text-center p-6 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div class="w-14 h-14 bg-vsoNavy text-white rounded-full flex items-center justify-center mb-5 shadow-lg shadow-vsoNavy/20">
-                    <i data-lucide="heart-handshake" class="w-7 h-7"></i>
+
+            <!-- Automatic List -->
+            <div class="px-4">
+                <h3 class="text-base font-bold text-slate-700 mb-4 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span> ทุนพิจารณาอัตโนมัติ (ไม่ต้องสมัครแยก)
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="auto-scholarship-list">
+                    <!-- Dynamic Content populated via JS -->
                 </div>
-                <h4 class="font-bold text-lg mb-2 text-vsoNavy">ดูแลตลอดการศึกษา</h4>
-                <p class="text-slate-500 text-sm font-thai leading-relaxed">อุ่นใจได้เสมอ มีพี่เลี้ยงคอยให้คำปรึกษาและช่วยเหลือแม้คุณจะบินไปถึงต่างประเทศแล้ว</p>
+            </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                <button onclick="openScholarshipModal()" class="text-sm font-bold text-vsoOrange">ดูรายชื่อทุนทั้งหมด</button>
             </div>
         </div>
 
     </main>
 
-    <footer class="mt-20 bg-vsoNavy text-white pt-16 pb-8 border-t-4 border-vsoOrange">
+    <!-- Footer (Same as before) -->
+    <footer class="mt-0 bg-vsoNavy text-white pt-16 pb-8 border-t-4 border-vsoOrange">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <div>
-                    <!-- VSO Logo Original Colors on White Background -->
                     <div class="bg-white px-4 py-2 rounded-lg inline-block mb-6 shadow-sm">
-                        <img src="https://img5.pic.in.th/file/secure-sv1/-5dddeed44d7957161.png" 
-                             alt="VSO Logo" 
-                             class="h-10 w-auto object-contain">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/-5dddeed44d7957161.png" alt="VSO Logo" class="h-10 w-auto object-contain">
                     </div>
-                    
                     <p class="text-gray-300 text-sm font-thai leading-relaxed mb-6">
                         VSO Visa & Study Overseas เพื่อนคู่คิดเรื่องเรียนต่อต่างประเทศ พร้อมให้บริการแนะแนวศึกษาต่อและยื่นวีซ่าครบวงจร
                     </p>
@@ -484,26 +505,17 @@
                 <div>
                     <h4 class="font-bold text-lg mb-6 text-white border-l-4 border-vsoOrange pl-3">ติดต่อเรา</h4>
                     <ul class="space-y-4 text-sm text-gray-300 font-thai">
-                        <li class="flex items-start gap-3">
-                            <i data-lucide="map-pin" class="w-5 h-5 text-vsoOrange shrink-0 mt-0.5"></i>
-                            <span>Level 10, 278 Collins Street, Melbourne Australia 3000</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i data-lucide="phone" class="w-5 h-5 text-vsoOrange shrink-0"></i>
-                            <a href="tel:+61414884631" class="hover:text-white transition-colors">+61 414 884 631</a>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i data-lucide="mail" class="w-5 h-5 text-vsoOrange shrink-0"></i>
-                            <a href="mailto:info@visastudyoverseas.com" class="hover:text-white transition-colors">info@visastudyoverseas.com</a>
-                        </li>
+                        <li class="flex items-start gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-vsoOrange shrink-0 mt-0.5"></i><span>Level 10, 278 Collins Street, Melbourne Australia 3000</span></li>
+                        <li class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-vsoOrange shrink-0"></i><a href="tel:+61414884631" class="hover:text-white transition-colors">+61 414 884 631</a></li>
+                        <li class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-vsoOrange shrink-0"></i><a href="mailto:info@visastudyoverseas.com" class="hover:text-white transition-colors">info@visastudyoverseas.com</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-lg mb-6 text-white border-l-4 border-vsoOrange pl-3">ลิงก์ด่วน</h4>
                     <ul class="space-y-3 text-sm text-gray-300 font-thai">
-                        <li><a href="https://www.visastudyoverseas.com/th" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> หน้าแรก</a></li>
-                        <li><a href="https://www.visastudyoverseas.com/th/services" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บริการของเรา</a></li>
-                        <li><a href="https://www.visastudyoverseas.com/th/blog" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บทความน่ารู้</a></li>
+                        <li><a href="#" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> หน้าแรก</a></li>
+                        <li><a href="#" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บริการของเรา</a></li>
+                        <li><a href="#" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บทความน่ารู้</a></li>
                     </ul>
                 </div>
             </div>
@@ -513,52 +525,124 @@
         </div>
     </footer>
 
-    <!-- LIGHTBOX (MODAL) for viewing images -->
-    <div id="lightbox" class="fixed inset-0 z-[60] bg-black/90 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
-        <!-- Close Button -->
-        <button class="absolute top-4 right-4 text-white hover:text-vsoOrange transition-colors z-50 p-2" onclick="closeLightbox()">
-            <i data-lucide="x" class="w-8 h-8"></i>
-        </button>
-        
-        <!-- Image Container -->
+    <!-- MODALS (Hidden) -->
+    <!-- Lightbox -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white hover:text-vsoOrange z-50 p-2" onclick="closeLightbox()"><i data-lucide="x" class="w-8 h-8"></i></button>
         <img id="lightbox-img" src="" class="max-w-full max-h-full rounded-lg shadow-2xl transform transition-transform duration-300 scale-95 object-contain" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Coming Soon -->
+    <div id="coming-soon-modal" class="fixed inset-0 z-[90] bg-black/60 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 backdrop-blur-sm" onclick="closeComingSoonModal()">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-8 text-center transform transition-transform duration-300 scale-95" onclick="event.stopPropagation()">
+            <div class="w-16 h-16 bg-orange-50 text-vsoOrange rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="clock" class="w-8 h-8"></i></div>
+            <h3 class="text-xl font-bold text-vsoNavy mb-2">อยู่ระหว่างอัพเดทข้อมูล</h3>
+            <p id="coming-soon-text" class="text-slate-500 font-thai mb-6">ข้อมูลประเทศนี้กำลังปรับปรุง<br>โปรดติดตามเร็วๆ นี้</p>
+            <button onclick="closeComingSoonModal()" class="btn-primary px-6 py-2 rounded-full font-bold w-full">ตกลง</button>
+        </div>
+    </div>
+
+    <!-- News Gallery Modal -->
+    <div id="news-gallery-modal" class="fixed inset-0 z-[80] bg-black/90 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 backdrop-blur-md" onclick="closeNewsGallery()">
+        <div class="bg-white w-full max-w-5xl h-[85vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col transform transition-transform duration-300 scale-95" onclick="event.stopPropagation()">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-white z-10">
+                <div><h3 class="text-2xl font-bold text-vsoNavy flex items-center gap-2"><i data-lucide="image" class="w-6 h-6 text-vsoOrange"></i> อัลบั้มข่าวสาร</h3><p class="text-sm text-slate-500 font-thai mt-1">รวมกิจกรรมและสิทธิพิเศษล่าสุด</p></div>
+                <button onclick="closeNewsGallery()" class="p-2 hover:bg-gray-100 rounded-full transition-colors"><i data-lucide="x" class="w-6 h-6 text-slate-500"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 custom-scrollbar bg-slate-50">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Gallery Items -->
+                    <div class="group relative aspect-[16/9] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all border border-gray-200 bg-white" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png')">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">ทุนเรียนฟรี 100% UNSW</h4></div>
+                    </div>
+                    <div class="group relative aspect-[16/9] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all border border-gray-200 bg-white" onclick="openLightbox('https://img2.pic.in.th/19420d55d0beee681.png')">
+                        <img src="https://img2.pic.in.th/19420d55d0beee681.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoBlue/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">โปรต่อวีซ่ารับ Gift Card</h4></div>
+                    </div>
+                    <div class="group relative aspect-[16/9] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all border border-gray-200 bg-white" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png')">
+                        <img src="https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-green-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">จับคู่ต่อวีซ่า รับ Cashback</h4></div>
+                    </div>
+                    <div class="group relative aspect-[16/9] rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all border border-gray-200 bg-white" onclick="openLightbox('https://img2.pic.in.th/34cc9071751ad9928.png')">
+                        <img src="https://img2.pic.in.th/34cc9071751ad9928.png" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-vsoOrange/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">ส่วนลดค่าเรียน 4 ประเทศ</h4></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scholarship List Modal -->
+    <div id="scholarship-modal" class="fixed inset-0 z-[70] bg-black/80 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 backdrop-blur-sm" onclick="closeScholarshipModal()">
+        <div class="bg-white w-full max-w-4xl h-[85vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col transform transition-transform duration-300 scale-95" id="modal-content" onclick="event.stopPropagation()">
+            <div class="bg-vsoNavy text-white p-6 flex justify-between items-center shrink-0">
+                <div><h3 class="text-2xl font-bold">🎓 รวมรายชื่อทุนการศึกษา</h3><p class="text-sm text-gray-300 font-thai mt-1">ออสเตรเลีย & นิวซีแลนด์ ปี 2026</p></div>
+                <button onclick="closeScholarshipModal()" class="text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="p-4 border-b border-gray-100 bg-slate-50 shrink-0">
+                <div class="relative"><i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"></i><input type="text" id="scholarship-search" placeholder="ค้นหาชื่อมหาวิทยาลัย หรือ ชื่อทุน..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-vsoOrange focus:border-transparent" onkeyup="filterScholarships()"></div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-4 custom-scrollbar bg-white" id="scholarship-list"></div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="scholarship-detail-modal" class="fixed inset-0 z-[80] bg-black/80 hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 backdrop-blur-sm" onclick="closeDetailModal()">
+        <div class="bg-white w-full max-w-md md:max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col transform transition-transform duration-300 scale-95 relative" id="detail-modal-content" onclick="event.stopPropagation()">
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 bg-white/80 hover:bg-white p-2 rounded-full transition-colors z-10"><i data-lucide="x" class="w-6 h-6"></i></button>
+            <div class="overflow-y-auto max-h-[80vh] custom-scrollbar">
+                <div class="p-8 pt-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-vsoNavy text-white rounded-full flex items-center justify-center font-bold text-xl shrink-0" id="detail-logo">U</div>
+                        <div>
+                            <div class="flex items-center gap-2"><span class="text-xs font-bold px-2 py-0.5 rounded bg-gray-100 text-gray-500" id="detail-loc">AUS</span></div>
+                            <h3 class="text-xl font-bold text-vsoNavy leading-tight mt-1" id="detail-uni">University Name</h3>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div><p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">ชื่อทุนการศึกษา</p><h4 class="text-lg font-semibold text-vsoBlue" id="detail-name">Name</h4></div>
+                        <div><p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">มูลค่าทุน</p><p class="text-2xl font-bold text-vsoOrange" id="detail-val">Value</p></div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-gray-100"><p class="text-sm text-slate-600 font-thai leading-relaxed" id="detail-desc">Desc...</p></div>
+                        <div class="flex items-center gap-2" id="detail-badge-container"></div>
+                    </div>
+                </div>
+                <div class="p-6 border-t border-gray-100 bg-slate-50 text-center"><a href="https://lin.ee/nHohUpi" target="_blank" class="btn-primary w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> สนใจทุนนี้ ทักไลน์เลย</a></div>
+            </div>
+        </div>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Reveal animations on scroll
+        // --- Intersection Observer for Animations ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                     observer.unobserve(entry.target);
                 }
             });
         });
-
-        document.querySelectorAll('.corporate-card').forEach((el) => {
-            el.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
+        // Initial setup for animated elements (add class manually in JS to keep HTML clean)
+        document.querySelectorAll('.modern-card, .btn-primary').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
             observer.observe(el);
         });
 
-        // --- Improved Slider Logic (Fade & Scale) ---
+        // --- Slider Logic ---
         let currentSlide = 0;
         const totalSlides = 4;
         const slides = document.querySelectorAll('.slide');
-        const dots = [
-            document.getElementById('dot-0'), 
-            document.getElementById('dot-1'),
-            document.getElementById('dot-2'),
-            document.getElementById('dot-3')
-        ];
+        const dots = [document.getElementById('dot-0'), document.getElementById('dot-1'), document.getElementById('dot-2'), document.getElementById('dot-3')];
         const progressBar = document.getElementById('progress-bar');
+        const slideDuration = 5000;
         let slideInterval;
-        let progressInterval;
-        const slideDuration = 5000; // 5 seconds
 
         function updateSlider() {
-            // Update Slides
             slides.forEach((slide, index) => {
                 if (index === currentSlide) {
                     slide.classList.add('active');
@@ -570,8 +654,6 @@
                     slide.classList.add('opacity-0', 'z-10', 'pointer-events-none');
                 }
             });
-            
-            // Update Dots
             dots.forEach((dot, index) => {
                 if (index === currentSlide) {
                     dot.classList.remove('w-2', 'bg-white/40');
@@ -581,49 +663,25 @@
                     dot.classList.add('w-2', 'bg-white/40');
                 }
             });
-
-            // Reset Progress Bar
             resetProgressBar();
         }
 
         function resetProgressBar() {
+            if(!progressBar) return;
             progressBar.style.transition = 'none';
             progressBar.style.width = '0%';
-            
-            // Trigger reflow
             void progressBar.offsetWidth;
-            
             progressBar.style.transition = `width ${slideDuration}ms linear`;
             progressBar.style.width = '100%';
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
-        }
+        function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateSlider(); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; updateSlider(); }
+        function goToSlide(index) { currentSlide = index; updateSlider(); resetTimer(); }
         
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlider();
-        }
+        function startTimer() { resetProgressBar(); slideInterval = setInterval(nextSlide, slideDuration); }
+        function resetTimer() { clearInterval(slideInterval); startTimer(); }
 
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
-            resetTimer(); // Manual navigation resets timer
-        }
-
-        function startTimer() {
-            resetProgressBar();
-            slideInterval = setInterval(nextSlide, slideDuration);
-        }
-
-        function resetTimer() {
-            clearInterval(slideInterval);
-            startTimer();
-        }
-
-        // Init
         startTimer();
 
         // Pause on hover
@@ -631,46 +689,180 @@
         if(sliderContainer) {
             sliderContainer.addEventListener('mouseenter', () => {
                 clearInterval(slideInterval);
-                progressBar.style.transition = 'none'; // Pause bar visual
-                const currentWidth = progressBar.offsetWidth;
-                progressBar.style.width = `${currentWidth}px`;
+                if(progressBar) { progressBar.style.transition = 'none'; progressBar.style.width = `${progressBar.offsetWidth}px`; }
             });
-            sliderContainer.addEventListener('mouseleave', () => {
-                startTimer();
-            });
+            sliderContainer.addEventListener('mouseleave', () => startTimer());
         }
 
-        // --- Lightbox Functions ---
-        function openLightbox(imgSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            
-            lightboxImg.src = imgSrc;
-            lightbox.classList.remove('hidden');
-            
-            setTimeout(() => {
-                lightbox.classList.add('lightbox-open');
-                lightboxImg.classList.remove('scale-95');
-                lightboxImg.classList.add('scale-100');
-            }, 10);
-            
-            clearInterval(slideInterval); // Stop slider when viewing image
+        // --- Modal & Lightbox Logic ---
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.remove('hidden');
+            setTimeout(() => { lb.classList.add('lightbox-open'); img.classList.remove('scale-95'); img.classList.add('scale-100'); }, 10);
+            clearInterval(slideInterval);
         }
-
         function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            lb.classList.remove('lightbox-open'); img.classList.remove('scale-100'); img.classList.add('scale-95');
+            setTimeout(() => { lb.classList.add('hidden'); img.src = ''; }, 300);
+            startTimer();
+        }
+
+        // Aliases for specific modals (to match onclicks)
+        const openNewsGallery = () => openModal('news-gallery-modal');
+        const closeNewsGallery = () => closeModal('news-gallery-modal');
+        const openScholarshipModal = () => openModal('scholarship-modal');
+        const closeScholarshipModal = () => closeModal('scholarship-modal');
+        const closeDetailModal = () => closeModal('scholarship-detail-modal');
+        const closeComingSoonModal = () => closeModal('coming-soon-modal');
+
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if(id === 'scholarship-modal') renderScholarships();
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.add('modal-open'); modal.children[0].classList.remove('scale-95'); modal.children[0].classList.add('scale-100'); }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('modal-open'); modal.children[0].classList.remove('scale-100'); modal.children[0].classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            document.body.style.overflow = '';
+        }
+
+        function openComingSoonModal(country) {
+            const modal = document.getElementById('coming-soon-modal');
+            document.getElementById('coming-soon-text').innerHTML = `ข้อมูล <strong>${country}</strong> อยู่ระหว่างการอัพเดท<br>โปรดติดตามเร็วๆ นี้`;
+            openModal('coming-soon-modal');
+        }
+
+        function openDetailModal(uni, name, value, desc, type, loc) {
+            document.getElementById('detail-uni').textContent = uni;
+            document.getElementById('detail-name').textContent = name;
+            document.getElementById('detail-val').textContent = value;
+            document.getElementById('detail-desc').textContent = desc;
+            document.getElementById('detail-loc').textContent = loc;
             
-            lightbox.classList.remove('lightbox-open');
-            lightboxImg.classList.remove('scale-100');
-            lightboxImg.classList.add('scale-95');
+            // Simplified Logo/Initial logic
+            document.getElementById('detail-logo').textContent = uni.charAt(0);
+
+            const badgeContainer = document.getElementById('detail-badge-container');
+            const isAuto = type === "Auto";
+            badgeContainer.innerHTML = isAuto ? 
+                `<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700"><i data-lucide="check-circle" class="w-3 h-3"></i> พิจารณาอัตโนมัติ</span>` : 
+                `<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700"><i data-lucide="file-edit" class="w-3 h-3"></i> ต้องยื่นใบสมัครเพิ่ม</span>`;
+            lucide.createIcons();
+            openModal('scholarship-detail-modal');
+        }
+
+        // --- Data & Filtering ---
+        const scholarshipData = [
+            // Griffith
+            { uni: "Griffith University", name: "Vice Chancellor's International Scholarship", val: "50% ส่วนลดค่าเรียน", desc: "ทุนการศึกษาสูงสุด 50% ตลอดหลักสูตร สำหรับนักศึกษาที่มีผลการเรียนดีเยี่ยม (GPA สูง) ต้องยื่นใบสมัครเพิ่มเติมเพื่อพิจารณาคัดเลือก", app: "Requires Application", loc: "AUS", color: "bg-gradient-to-r from-red-600 to-red-700", initial: "GU" },
+            { uni: "Griffith University", name: "International Academic Merit Scholarship", val: "20% ส่วนลดค่าเรียน", desc: "ส่วนลดค่าเล่าเรียน 20% ตลอดหลักสูตร สำหรับนักศึกษาที่มีผลการเรียนผ่านเกณฑ์ที่กำหนด พิจารณาให้อัตโนมัติทันทีที่สมัคร", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-red-600 to-red-700", initial: "GU" },
+            { uni: "Griffith University", name: "GELI Direct Entry Program Scholarship", val: "$1,000", desc: "ทุนส่วนลด $1,000 สำหรับหลักสูตรภาษา (Direct Entry Program) เมื่อสมัครเรียนต่อเนื่องเข้ามหาวิทยาลัย", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-red-600 to-red-700", initial: "GU" },
+            { uni: "Griffith University", name: "Griffith College Diploma to Degree", val: "$3,000", desc: "ทุนส่วนลด $3,000 สำหรับนักศึกษาที่เรียนจบ Diploma จาก Griffith College และเข้าศึกษาต่อระดับปริญญาตรีที่ Griffith University", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-red-600 to-red-700", initial: "GU" },
             
-            setTimeout(() => {
-                lightbox.classList.add('hidden');
-                lightboxImg.src = '';
-            }, 300);
+            // Newcastle
+            { uni: "The University of Newcastle", name: "International Excellence Scholarship", val: "AU$8,000 ต่อปี", desc: "ส่วนลดค่าเรียน AU$8,000 ต่อปี ตลอดหลักสูตร ช่วยลดภาระค่าใช้จ่ายได้มาก พิจารณาอัตโนมัติจากเกรดเฉลี่ย", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-emerald-600 to-emerald-700", initial: "UON" },
             
-            startTimer(); // Resume slider
+            // UTS
+            { uni: "University of Technology Sydney", name: "GCE A Level and IB Scholarship", val: "50% ตลอดหลักสูตร", desc: "ทุนการศึกษา 50% ของค่าเรียนตลอดหลักสูตร สำหรับนักเรียนที่จบหลักสูตรนานาชาติ A Level หรือ IB Diploma ด้วยคะแนนยอดเยี่ยม ต้องยื่นใบสมัคร", app: "Requires Application", loc: "AUS", color: "bg-gradient-to-r from-slate-800 to-slate-900", initial: "UTS" },
+            { uni: "University of Technology Sydney", name: "Undergraduate Academic Excellence", val: "25% ตลอดหลักสูตร", desc: "ทุนส่วนลด 25% ตลอดหลักสูตร สำหรับนักศึกษาระดับปริญญาตรีที่มีผลการเรียนดี พิจารณาอัตโนมัติ", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-slate-800 to-slate-900", initial: "UTS" },
+            { uni: "University of Technology Sydney", name: "UTS College to UTS Pathways", val: "50% ตลอดหลักสูตร", desc: "ทุนการศึกษา 50% สำหรับนักศึกษาที่เรียนผ่าน UTS College เข้าสู่ UTS ต้องยื่นใบสมัคร", app: "Requires Application", loc: "AUS", color: "bg-gradient-to-r from-slate-800 to-slate-900", initial: "UTS" },
+            { uni: "University of Technology Sydney", name: "Postgraduate Academic Excellence", val: "30% ตลอดหลักสูตร", desc: "ทุนส่วนลด 30% ตลอดหลักสูตร สำหรับระดับปริญญาโท พิจารณาอัตโนมัติจากผลการเรียนระดับปริญญาตรี", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-slate-800 to-slate-900", initial: "UTS" },
+            
+            // UOW
+            { uni: "University of Wollongong", name: "Postgraduate Academic Excellence", val: "30% ตลอดหลักสูตร", desc: "ส่วนลด 30% ตลอดหลักสูตร สำหรับผู้สมัครระดับปริญญาโทที่มีผลการเรียนดีเยี่ยม พิจารณาอัตโนมัติ", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-rose-600 to-rose-700", initial: "UOW" },
+            
+            // UNE
+            { uni: "University of New England", name: "UNE Bursaries", val: "20% ปีแรก", desc: "ทุนช่วยเหลือ 20% สำหรับค่าเรียนปีการศึกษาแรก และส่วนลดค่าหอพัก (ต้องรักษาระดับ GPA 4.5/7 เพื่อรับทุนต่อเนื่อง)", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-lime-600 to-lime-700", initial: "UNE" },
+            
+            // Federation
+            { uni: "Federation University Australia", name: "Federation Excellence Scholarship", val: "20% ตลอดหลักสูตร", desc: "ส่วนลดค่าเรียน 20% ตลอดระยะเวลาการศึกษา เพียงมีคุณสมบัติตามเกณฑ์ที่มหาวิทยาลัยกำหนด พิจารณาอัตโนมัติ", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-blue-700 to-blue-800", initial: "Fed" },
+            
+            // Tasmania
+            { uni: "University of Tasmania", name: "Tasmanian International Scholarship", val: "25% ตลอดหลักสูตร", desc: "ทุนส่วนลด 25% ของค่าเรียนตลอดหลักสูตร ไม่จำกัดจำนวนทุน พิจารณาอัตโนมัติเมื่อสมัครเรียน", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-red-700 to-red-800", initial: "UTAS" },
+            
+            // Sunshine Coast
+            { uni: "University of the Sunshine Coast", name: "International Student Scholarship", val: "15% ตลอดหลักสูตร", desc: "ส่วนลด 15% ตลอดหลักสูตร สำหรับนักศึกษาต่างชาติทุกคนที่สมัครเรียน", app: "Auto", loc: "AUS", color: "bg-gradient-to-r from-amber-400 to-amber-500", initial: "UniSC" },
+            
+            // NZ
+            { uni: "Auckland University of Technology", name: "International Scholarship for SEA", val: "NZ$5,000 - $10,000", desc: "ทุนการศึกษามูลค่า NZ$5,000 - $10,000 สำหรับนักเรียนจากเอเชียตะวันออกเฉียงใต้ ต้องยื่นใบสมัครและมีผลการเรียนดี", app: "Requires Application", loc: "NZ", color: "bg-gradient-to-r from-blue-600 to-blue-700", initial: "AUT" },
+            { uni: "Massey University", name: "Toroa International Undergraduate", val: "NZ$5,000", desc: "ทุนส่วนลด NZ$5,000 สำหรับระดับปริญญาตรี ต้องยื่นใบสมัคร", app: "Requires Application", loc: "NZ", color: "bg-gradient-to-r from-yellow-500 to-yellow-600", initial: "MU" },
+            { uni: "Victoria University of Wellington", name: "VUW Undergraduate International", val: "NZ$15,000", desc: "ทุนการศึกษา Wellington International Excellence มูลค่า NZ$15,000 สำหรับระดับปริญญาตรี พิจารณาจากผลการเรียน", app: "Auto", loc: "NZ", color: "bg-gradient-to-r from-green-700 to-green-800", initial: "VUW" }
+        ];
+
+        // Automatic Scholarships List Generator (4 Selected)
+        const autoScholarships = [
+            scholarshipData.find(s => s.initial === "UON"),
+            scholarshipData.find(s => s.initial === "UTAS"),
+            scholarshipData.find(s => s.initial === "Fed"),
+            scholarshipData.find(s => s.initial === "VUW")
+        ];
+        
+        const autoListContainer = document.getElementById('auto-scholarship-list');
+        autoListContainer.innerHTML = ''; // clear initial content
+        
+        autoScholarships.forEach(item => {
+            const safeUni = item.uni.replace(/'/g, "\\'");
+            const safeName = item.name.replace(/'/g, "\\'");
+            const safeVal = item.val.replace(/'/g, "\\'");
+            const safeDesc = item.desc.replace(/'/g, "\\'");
+            
+            const card = `
+                <div class="scholarship-card p-4 cursor-pointer group hover:border-vsoOrange/50" onclick="openDetailModal('${safeUni}', '${safeName}', '${safeVal}', '${safeDesc}', '${item.app}', '${item.loc}')">
+                    <div class="absolute top-0 left-0 w-full h-2 ${item.color}"></div>
+                    <div class="flex justify-between items-start mb-3 pt-2">
+                        <h4 class="font-bold text-vsoNavy text-sm leading-tight group-hover:text-vsoOrange transition-colors w-2/3">${item.uni}</h4>
+                         <div class="uni-logo-wrapper w-8 h-8 text-[10px] bg-white text-slate-700 shadow-sm border border-slate-100 relative top-0 right-0">${item.initial}</div>
+                    </div>
+                    <p class="text-vsoOrange font-bold text-lg leading-tight">${item.val}</p>
+                    <p class="text-xs text-slate-500 mt-1 line-clamp-1">${item.name}</p>
+                </div>
+            `;
+            autoListContainer.innerHTML += card;
+        });
+
+
+        function renderScholarships(filterText = "") {
+            const listContainer = document.getElementById('scholarship-list');
+            listContainer.innerHTML = "";
+            const filtered = scholarshipData.filter(item => item.uni.toLowerCase().includes(filterText.toLowerCase()) || item.name.toLowerCase().includes(filterText.toLowerCase()));
+            
+            if (filtered.length === 0) { listContainer.innerHTML = `<div class="text-center py-10 text-gray-400">ไม่พบข้อมูล</div>`; return; }
+
+            filtered.forEach(item => {
+                const isAuto = item.app === "Auto";
+                const badgeColor = isAuto ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700";
+                const icon = isAuto ? "check-circle" : "file-edit";
+                const appText = isAuto ? "พิจารณาอัตโนมัติ" : "ยื่นใบสมัครเพิ่ม";
+                const flag = item.loc === "AUS" ? "🇦🇺" : "🇳🇿";
+                const safeUni = item.uni.replace(/'/g, "\\'");
+                const safeName = item.name.replace(/'/g, "\\'");
+                const safeVal = item.val.replace(/'/g, "\\'");
+                const safeDesc = item.desc.replace(/'/g, "\\'");
+
+                const cardHtml = `
+                    <div class="bg-white border border-gray-100 rounded-xl p-4 mb-3 hover:shadow-md transition-shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cursor-pointer relative overflow-hidden" onclick="openDetailModal('${safeUni}', '${safeName}', '${safeVal}', '${safeDesc}', '${item.app}', '${item.loc}')">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 ${item.color}"></div>
+                        <div class="flex-1 pl-2">
+                            <div class="flex items-center gap-2 mb-1"><span class="text-lg">${flag}</span><span class="font-bold text-vsoNavy">${item.uni}</span></div>
+                            <h4 class="text-vsoBlue font-medium text-sm md:text-base">${item.name}</h4>
+                            <p class="text-vsoOrange font-bold mt-1 text-lg">${item.val}</p>
+                        </div>
+                        <div class="flex items-center gap-3 w-full md:w-auto shrink-0">
+                            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${badgeColor}"><i data-lucide="${icon}" class="w-3 h-3"></i> ${appText}</span>
+                            <div class="p-2 bg-gray-50 rounded-full hover:bg-gray-100 text-gray-400 hover:text-vsoBlue transition-colors"><i data-lucide="chevron-right" class="w-5 h-5"></i></div>
+                        </div>
+                    </div>
+                `;
+                listContainer.innerHTML += cardHtml;
+            });
+            lucide.createIcons();
         }
     </script>
 </body>
