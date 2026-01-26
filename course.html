@@ -197,118 +197,137 @@
         </div>
 
         <!-- HERO SLIDER -->
-        <div class="relative w-full rounded-3xl overflow-hidden mb-20 shadow-soft aspect-[4/5] md:aspect-[16/9] group isolate bg-slate-100 border border-slate-100">
+        <div class="relative w-full rounded-3xl overflow-hidden mb-20 shadow-2xl aspect-[3/4] md:aspect-[21/9] group isolate bg-slate-900 border border-slate-800">
             
+            <!-- Slides Container -->
             <div id="slider-container" class="relative w-full h-full">
-                <!-- Slide 1 -->
-                <div class="slide active absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 z-20" data-index="0">
+                
+                <!-- Slide 1: ทุนเรียนฟรี 100% UNSW -->
+                <div class="slide active absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 z-20" data-index="0">
                     <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png')">
-                        <img src="https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Scholarship">
-                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังเป็น 50% และปรับ Gradient ให้ทึบขึ้นเพื่อให้อ่านง่าย -->
-                        <div class="absolute inset-0 bg-black/50"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                        <!-- [แก้ไข] เพิ่ม blur-sm และ scale-110 เพื่อเบลอภาพและขยายกันขอบขาว -->
+                        <img src="https://img5.pic.in.th/file/secure-sv1/-2a53cfe609c0e0687.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-out scale-110 blur-sm" alt="Scholarship Promo">
+                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังเป็น 60% และใส่ Gradient ให้ตัวหนังสือชัด -->
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                     </div>
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                    
+                    <!-- [แก้ไข] ลบกล่อง Glassmorphism ออก จัดวางข้อความโดยตรง -->
+                    <div class="absolute bottom-0 left-0 p-8 md:p-16 w-full flex flex-col justify-end pointer-events-none">
                         <div class="animate-item delay-100">
-                            <span class="inline-flex items-center px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded-lg mb-4 shadow-lg border border-white/20">Scholarship</span>
+                            <span class="inline-block px-3 py-1 bg-vsoOrange text-white text-xs font-bold uppercase tracking-wider rounded-full mb-3 shadow-lg">Scholarship</span>
                         </div>
-                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight drop-shadow-lg animate-item delay-200">
                             ทุนเรียนฟรี 100%<br>จาก UNSW
                         </h2>
-                        <p class="animate-item delay-300 text-gray-100 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-xl hidden md:block font-medium">
-                            โอกาสครั้งสำคัญ! ทุนการศึกษาเต็มจำนวนจากมหาวิทยาลัยชั้นนำระดับโลก UNSW ออสเตรเลีย
+                        <p class="text-slate-100 text-base md:text-xl font-thai mb-6 leading-relaxed font-medium max-w-2xl drop-shadow-md animate-item delay-300 hidden md:block">
+                            โอกาสครั้งสำคัญ! ทุนการศึกษาเต็มจำนวนจากมหาวิทยาลัยชั้นนำระดับโลก UNSW ออสเตรเลีย สมัครด่วนจำนวนจำกัด
                         </p>
                     </div>
                 </div>
 
-                <!-- Slide 2 -->
-                <div class="slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 z-10 pointer-events-none" data-index="1">
+                <!-- Slide 2: ต่อวีซ่ารับ Gift Card -->
+                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="1">
                     <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/19420d55d0beee681.png')">
-                        <img src="https://img2.pic.in.th/19420d55d0beee681.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Visa Promo">
-                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังและ Gradient -->
-                        <div class="absolute inset-0 bg-black/50"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                        <img src="https://img2.pic.in.th/19420d55d0beee681.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-out scale-110 blur-sm" alt="Visa Service">
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                     </div>
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                    
+                    <div class="absolute bottom-0 left-0 p-8 md:p-16 w-full flex flex-col justify-end pointer-events-none">
                         <div class="animate-item delay-100">
-                            <span class="inline-flex px-3 py-1 bg-yellow-500 text-vsoNavy text-xs font-bold uppercase tracking-wider rounded-lg mb-4 shadow-lg border border-white/20">Promotion</span>
+                            <span class="inline-block px-3 py-1 bg-yellow-500 text-vsoNavy text-xs font-bold uppercase tracking-wider rounded-full mb-3 shadow-lg">Promotion</span>
                         </div>
-                        <h2 class="animate-item delay-200 text-2xl md:text-4xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
-                            ต่อวีซ่ารับฟรี<br>Gift Card สูงสุด $600
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight drop-shadow-lg animate-item delay-200">
+                            ต่อวีซ่ากับ VSO วันนี้<br>รับฟรี Gift Card สูงสุด $600
                         </h2>
-                        <div class="animate-item delay-300 text-gray-100 text-sm font-thai mb-6 max-w-lg bg-black/40 p-4 rounded-xl backdrop-blur-md border border-white/10 shadow-lg">
-                            <ul class="list-disc pl-4 space-y-1 font-medium">
-                                <li>รับ Coles/Woolworths Gift Card $300 (1 ปี)</li>
-                                <li>รับ Coles/Woolworths Gift Card $600 (2 ปี)</li>
+                        <div class="text-slate-100 text-base md:text-xl font-thai font-medium max-w-2xl drop-shadow-md animate-item delay-300 hidden md:block">
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>รับ Coles/Woolworths Gift Card <strong>$300</strong> (ต่อ 1 ปี)</li>
+                                <li>รับ Coles/Woolworths Gift Card <strong>$600</strong> (ต่อ 2 ปี)</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 3 -->
-                <div class="slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 z-10 pointer-events-none" data-index="2">
+                <!-- Slide 3: จับคู่ต่อวีซ่า -->
+                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="2">
                     <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png')">
-                        <img src="https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Couple Promo">
-                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังและ Gradient -->
-                        <div class="absolute inset-0 bg-black/50"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                        <img src="https://img5.pic.in.th/file/secure-sv1/226ca432f4eff2754.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-out scale-110 blur-sm" alt="Workshop">
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                     </div>
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                    
+                    <div class="absolute bottom-0 left-0 p-8 md:p-16 w-full flex flex-col justify-end pointer-events-none">
                         <div class="animate-item delay-100">
-                            <span class="inline-flex px-3 py-1 bg-green-500 text-white text-xs font-bold uppercase tracking-wider rounded-lg mb-4 shadow-lg border border-white/20">Duo Deal</span>
+                            <span class="inline-block px-3 py-1 bg-green-500 text-white text-xs font-bold uppercase tracking-wider rounded-full mb-3 shadow-lg">Duo Deal</span>
                         </div>
-                        <h2 class="animate-item delay-200 text-3xl md:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-2xl">
-                            จับคู่ต่อวีซ่า<br>รับ Cashback $500
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight drop-shadow-lg animate-item delay-200">
+                            จับคู่กันมาต่อวีซ่า<br>รับ Cash Back คนละ $500
                         </h2>
-                        <p class="animate-item delay-300 text-gray-100 text-sm md:text-lg font-thai mb-8 max-w-lg drop-shadow-xl text-shadow font-medium">
-                            สิทธิพิเศษ! เพียงจับคู่เพื่อนมาต่อวีซ่าพร้อมกัน รับเงินคืนเข้ากระเป๋าทันทีคนละ $500
+                        <p class="text-slate-100 text-base md:text-xl font-thai mb-6 leading-relaxed font-medium max-w-2xl drop-shadow-md animate-item delay-300 hidden md:block">
+                            สิทธิพิเศษ! เพียงจับคู่เพื่อนมาต่อวีซ่าพร้อมกัน ภายในวันที่ 15 มีนาคมนี้ รับเงินคืนเข้ากระเป๋าทันที
                         </p>
                     </div>
                 </div>
 
-                <!-- Slide 4 -->
-                <div class="slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 z-10 pointer-events-none" data-index="3">
+                <!-- Slide 4: ส่วนลดค่าเรียน -->
+                <div class="slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 z-10 pointer-events-none" data-index="3">
                     <div class="absolute inset-0 overflow-hidden cursor-zoom-in" onclick="openLightbox('https://img2.pic.in.th/34cc9071751ad9928.png')">
-                        <img src="https://img2.pic.in.th/34cc9071751ad9928.png" class="slide-img w-full h-full object-cover transition-transform duration-[8000ms] ease-out scale-100" alt="Discount">
-                        <!-- [แก้ไข] เพิ่มความเข้มพื้นหลังและ Gradient -->
-                        <div class="absolute inset-0 bg-black/50"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black md:via-black/60 md:to-transparent"></div>
+                        <img src="https://img2.pic.in.th/34cc9071751ad9928.png" 
+                             class="slide-img w-full h-full object-cover transition-transform duration-[10000ms] ease-out scale-110 blur-sm" alt="Consultation">
+                        <div class="absolute inset-0 bg-black/60"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                     </div>
-                    <div class="absolute inset-0 flex flex-col justify-end md:justify-center px-6 pb-16 md:pb-0 md:px-20 max-w-2xl pointer-events-none">
+                    
+                    <div class="absolute bottom-0 left-0 p-8 md:p-16 w-full flex flex-col justify-end pointer-events-none">
                         <div class="animate-item delay-100">
-                            <span class="inline-flex px-3 py-1 bg-white text-vsoOrange text-xs font-bold uppercase tracking-wider rounded-lg mb-3 shadow-lg">Hot Sale</span>
+                            <span class="inline-block px-3 py-1 bg-white text-vsoOrange text-xs font-bold uppercase tracking-wider rounded-full mb-3 shadow-lg">Hot Sale</span>
                         </div>
-                        <h2 class="animate-item delay-200 text-2xl md:text-3xl font-bold text-white mb-3 leading-tight drop-shadow-2xl">
-                            ส่วนลดค่าเรียน 4 ประเทศ
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight drop-shadow-lg animate-item delay-200">
+                            ส่วนลดค่าเรียน 4 ประเทศยอดฮิต
                         </h2>
-                        <div class="animate-item delay-300 bg-black/60 p-4 rounded-xl backdrop-blur-md border border-white/20 mb-6 max-w-md shadow-lg">
-                            <ul class="text-white text-xs md:text-sm space-y-2 font-thai font-medium">
-                                <li class="flex justify-between border-b border-white/10 pb-1"><span>📚 ลงเรียน 1 ปี</span> <span class="font-bold text-green-300">ลด 15,000฿</span></li>
-                                <li class="flex justify-between pt-1"><span>📚 ลงเรียน 6-9 เดือน</span> <span class="font-bold text-green-300">ลด 8,000฿</span></li>
+                        <div class="text-slate-100 text-base md:text-xl font-thai font-medium max-w-2xl drop-shadow-md animate-item delay-300 hidden md:block">
+                            <ul class="space-y-2">
+                                <li class="flex items-center gap-3">
+                                    <span class="bg-green-500/20 p-1 rounded text-green-400"><i data-lucide="check" class="w-4 h-4"></i></span>
+                                    <span>ลงเรียน 1 ปี ลดทันที <strong class="text-green-400">15,000฿</strong></span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <span class="bg-green-500/20 p-1 rounded text-green-400"><i data-lucide="check" class="w-4 h-4"></i></span>
+                                    <span>ลงเรียน 6-9 เดือน ลดทันที <strong class="text-green-400">8,000฿</strong></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <!-- Controls -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30 pointer-events-auto" onclick="event.stopPropagation()">
-                <button onclick="goToSlide(0)" id="dot-0" class="h-1.5 rounded-full bg-white transition-all w-8 opacity-100 shadow-sm"></button>
-                <button onclick="goToSlide(1)" id="dot-1" class="h-1.5 rounded-full bg-white/40 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
-                <button onclick="goToSlide(2)" id="dot-2" class="h-1.5 rounded-full bg-white/40 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
-                <button onclick="goToSlide(3)" id="dot-3" class="h-1.5 rounded-full bg-white/40 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+            <!-- Controls (Bottom Right for Modern Look) -->
+            <div class="absolute bottom-8 right-6 md:bottom-16 md:right-16 flex gap-3 z-30 pointer-events-auto" onclick="event.stopPropagation()">
+                <button onclick="prevSlide()" class="w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110">
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <button onclick="nextSlide()" class="w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110">
+                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                </button>
             </div>
-            
-            <button onclick="event.stopPropagation(); prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 pointer-events-auto border border-white/20">
-                <i data-lucide="chevron-left" class="w-6 h-6"></i>
-            </button>
-            <button onclick="event.stopPropagation(); nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all opacity-0 group-hover:opacity-100 pointer-events-auto border border-white/20">
-                <i data-lucide="chevron-right" class="w-6 h-6"></i>
-            </button>
+
+            <!-- Dots (Bottom Center) -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 md:left-16 md:bottom-16 md:translate-x-0 flex gap-2 z-30 pointer-events-auto" onclick="event.stopPropagation()">
+                <button onclick="goToSlide(0)" id="dot-0" class="h-1.5 rounded-full bg-vsoOrange transition-all w-8 opacity-100 shadow-sm"></button>
+                <button onclick="goToSlide(1)" id="dot-1" class="h-1.5 rounded-full bg-white/30 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+                <button onclick="goToSlide(2)" id="dot-2" class="h-1.5 rounded-full bg-white/30 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+                <button onclick="goToSlide(3)" id="dot-3" class="h-1.5 rounded-full bg-white/30 hover:bg-white transition-all w-2 opacity-100 shadow-sm"></button>
+            </div>
             
             <!-- Progress -->
             <div class="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-30">
-                <div id="progress-bar" class="h-full bg-vsoOrange shadow-[0_0_10px_rgba(242,101,34,0.7)] w-0"></div>
+                <div id="progress-bar" class="h-full bg-vsoOrange shadow-[0_0_15px_rgba(242,101,34,0.8)] w-0"></div>
             </div>
         </div>
 
@@ -327,9 +346,11 @@
 
         <!-- Destinations Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 auto-rows-min mb-24">
+
             <!-- Australia -->
             <a id="australia" href="https://visaandstudyoverseas.github.io/australia" target="_blank" rel="noopener noreferrer" class="modern-card sm:col-span-2 lg:col-span-2 lg:row-span-2 group min-h-[320px] md:min-h-[400px]">
-                <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Australia">
+                <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1000&auto=format&fit=crop" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Australia">
                 <div class="absolute inset-0 bg-gradient-to-t from-vsoNavy/90 via-vsoNavy/20 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 p-8 w-full text-white">
                     <span class="inline-block px-2 py-1 bg-white/20 backdrop-blur-md rounded-md text-[10px] font-bold uppercase mb-3 border border-white/20">Recommended</span>
@@ -340,9 +361,11 @@
                     </div>
                 </div>
             </a>
+
             <!-- New Zealand -->
             <a id="newzealand" href="https://visaandstudyoverseas.github.io/nzlc" target="_blank" rel="noopener noreferrer" class="modern-card col-span-1 group bg-vsoNavy text-white min-h-[240px]">
-                 <img src="https://images.unsplash.com/photo-1589802829985-817e51171b92?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-40" alt="New Zealand">
+                 <img src="https://images.unsplash.com/photo-1589802829985-817e51171b92?q=80&w=600&auto=format&fit=crop" 
+                      class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110 group-hover:opacity-40" alt="New Zealand">
                 <div class="absolute top-6 right-6 w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center">
                     <i data-lucide="mountain" class="w-5 h-5"></i>
                 </div>
@@ -351,6 +374,7 @@
                     <p class="text-xs text-slate-300 font-thai">ธรรมชาติบำบัด & การเรียนที่เน้นปฏิบัติ</p>
                 </div>
             </a>
+
             <!-- Stats -->
             <div class="modern-card col-span-1 flex flex-col items-center justify-center text-center p-6 bg-white min-h-[240px] border-t-4 border-t-vsoOrange">
                 <h3 class="text-5xl font-bold text-vsoNavy mb-2">98%</h3>
@@ -361,6 +385,7 @@
                     <div class="w-10 h-10 rounded-full border-2 border-white bg-vsoNavy flex items-center justify-center text-xs text-white font-bold shadow-sm">+500</div>
                 </div>
             </div>
+
             <!-- Canada -->
             <a id="canada" href="javascript:void(0)" onclick="openComingSoonModal('Canada')" class="modern-card sm:col-span-2 lg:col-span-2 group min-h-[240px] overflow-hidden flex flex-row">
                 <div class="w-1/2 p-8 flex flex-col justify-center relative z-10 bg-white">
@@ -372,33 +397,46 @@
                     <p class="text-slate-500 text-sm font-thai mb-0 line-clamp-2">คุณภาพชีวิตอันดับต้นๆ เปิดกว้างสำหรับผู้อพยพ</p>
                 </div>
                 <div class="w-1/2 relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Canada">
+                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=600&auto=format&fit=crop" 
+                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Canada">
                 </div>
             </a>
+
             <!-- Malta -->
             <a id="malta" href="javascript:void(0)" onclick="openComingSoonModal('Malta')" class="modern-card col-span-1 lg:col-span-2 group text-white min-h-[240px]">
-                <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Malta">
+                <img src="https://images.unsplash.com/photo-1520520731457-9283dd14aa66?q=80&w=1000&auto=format&fit=crop" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Malta">
                  <div class="absolute inset-0 bg-vsoNavy/80 group-hover:bg-vsoNavy/70 transition-colors"></div>
                  <div class="absolute bottom-0 left-0 p-6 w-full flex justify-between items-end">
                     <div>
-                        <div class="flex items-center gap-2 mb-1 text-sky-300 text-xs font-bold uppercase"><i data-lucide="waves" class="w-3 h-3"></i> Europe</div>
+                        <div class="flex items-center gap-2 mb-1 text-sky-300 text-xs font-bold uppercase">
+                            <i data-lucide="waves" class="w-3 h-3"></i> Europe
+                        </div>
                         <h3 class="text-2xl font-bold">Malta</h3>
                         <p class="text-sm text-slate-300 font-thai max-w-xs line-clamp-1">เรียนภาษาบรรยากาศเมดิเตอร์เรเนียน</p>
                     </div>
-                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-vsoNavy transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-vsoNavy transition-colors">
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
                  </div>
             </a>
+
              <!-- Dubai -->
              <a id="dubai" href="javascript:void(0)" onclick="openComingSoonModal('Dubai')" class="modern-card col-span-1 lg:col-span-2 group text-white min-h-[240px]">
-                <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Dubai">
+                <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?q=80&w=1000&auto=format&fit=crop" 
+                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Dubai">
                  <div class="absolute inset-0 bg-vsoOrange/80 mix-blend-multiply group-hover:bg-vsoOrange/70 transition-colors"></div>
                  <div class="absolute bottom-0 left-0 p-6 w-full flex justify-between items-end">
                     <div>
-                        <div class="flex items-center gap-2 mb-1 text-white/80 text-xs font-bold uppercase"><i data-lucide="crown" class="w-3 h-3"></i> Middle East</div>
+                        <div class="flex items-center gap-2 mb-1 text-white/80 text-xs font-bold uppercase">
+                            <i data-lucide="crown" class="w-3 h-3"></i> Middle East
+                        </div>
                         <h3 class="text-2xl font-bold">Dubai</h3>
                         <p class="text-sm text-white/90 font-thai max-w-xs line-clamp-1">ทำงานได้ทันที ไม่ใช้ Statement</p>
                     </div>
-                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-vsoOrange transition-colors"><i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-vsoOrange transition-colors">
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </div>
                  </div>
             </a>
         </div>
@@ -485,7 +523,7 @@
 
     </main>
 
-    <!-- Footer (Same as before) -->
+    <!-- Footer -->
     <footer class="mt-0 bg-vsoNavy text-white pt-16 pb-8 border-t-4 border-vsoOrange">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -513,9 +551,9 @@
                 <div>
                     <h4 class="font-bold text-lg mb-6 text-white border-l-4 border-vsoOrange pl-3">ลิงก์ด่วน</h4>
                     <ul class="space-y-3 text-sm text-gray-300 font-thai">
-                        <li><a href="#" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> หน้าแรก</a></li>
-                        <li><a href="#" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บริการของเรา</a></li>
-                        <li><a href="#" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บทความน่ารู้</a></li>
+                        <li><a href="https://www.visastudyoverseas.com/th" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> หน้าแรก</a></li>
+                        <li><a href="https://www.visastudyoverseas.com/th/more-about-me" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บริการของเรา</a></li>
+                        <li><a href="https://www.visastudyoverseas.com/th/blog" target="_blank" class="hover:text-vsoOrange transition-colors flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4"></i> บทความน่ารู้</a></li>
                     </ul>
                 </div>
             </div>
